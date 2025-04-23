@@ -1,4 +1,4 @@
-package programmers.coffee.global;
+package programmers.coffee.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,23 +20,20 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
         http
-            .authorizeHttpRequests(
-                (auth) -> auth
-                    .requestMatchers("/", "/users/login", "/users/login-process", "/users/signup").permitAll()
-                    .requestMatchers("/css/**", "/assets/**", "/js/**").permitAll()
-                    .anyRequest().authenticated()
-            );
+                .authorizeHttpRequests(
+                        (auth) -> auth
+                                .requestMatchers("/", "/login", "/login-process", "/join", "/join-process").permitAll()
+                                .requestMatchers("/css/**", "/assets/**", "/js/**").permitAll()
+                                .anyRequest().authenticated()
+                );
 
         http.csrf((auth) -> auth.disable());
 
         http
-            .formLogin(auth -> auth
-                .loginProcessingUrl("/users/login-process")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/users")
-                .permitAll()
-            );
+                .formLogin((auth) -> auth.loginPage("/login")
+                        .loginProcessingUrl("/login-process")
+                        .permitAll()
+                );
 
         return http.build();
     }
