@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//KO"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="programmers.coffee.order_create.mapper.OrderMapper">
+
+  <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
+    INSERT INTO orders (email, name, zip_code, address, order_time, order_status)
+    VALUES (#{email}, #{name}, #{zipCode}, #{address}, #{orderTime}, #{orderStatus})
+  </insert>
+
+  <insert id="insertOrderItem" useGeneratedKeys="true" keyProperty="orderItemId">
+    INSERT INTO order_item (order_id, item_id, order_cnt, price)
+    VALUES (#{orderId}, #{itemId}, #{orderCnt}, #{price})
+  </insert>
+
+  <update id="updateTotalPrice">
+    UPDATE orders SET total_price = #{totalPrice} WHERE order_id = #{orderId}
+  </update>
+
+  <select id="selectOrderById" resultType="programmers.coffee.order_create.domain.Order">
+    SELECT * FROM orders WHERE order_id = #{orderId}
+  </select>
+
+  <select id="selectOrderItemsByOrderId" resultType="programmers.coffee.order_create.domain.OrderItem">
+    SELECT oi.*, i.item_name
+    FROM order_item oi
+           JOIN item i ON oi.item_id = i.item_id
+    WHERE oi.order_id = #{orderId}
+  </select>
+
+</mapper>
