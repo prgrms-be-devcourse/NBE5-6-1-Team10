@@ -1,6 +1,4 @@
 # 🏗️ System Architecture
-
-아래는 본 프로젝트의 전체적인 시스템 아키텍처입니다.  
 서비스 구성 요소 간의 관계 및 주요 흐름을 시각화한 다이어그램입니다.
 
 ![시스템 아키텍처 drawio](https://github.com/user-attachments/assets/4107c5ef-83ed-41dc-bcbb-2471eeb13bcf)
