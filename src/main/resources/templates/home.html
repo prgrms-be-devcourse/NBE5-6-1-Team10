@@ -37,10 +37,10 @@
             <div class="col-md-6">
                 <div class="card p-4 shadow">
                     <h4 class="text-center mb-4">로그인</h4>
-                    <form th:action="@{/login-process}" method="post">
+                    <form th:action="@{/users/login-process}" method="post">
                         <div class="mb-3">
-                            <label for="username" class="form-label">아이디</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="아이디 입력" required />
+                            <label for="email" class="form-label">이메일</label>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="아이디 입력" required />
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">비밀번호</label>
@@ -52,8 +52,8 @@
                     </form>
                     <hr />
                     <div class="d-flex justify-content-between mt-3">
-                        <a th:href="@{/signup}" class="btn btn-outline-secondary w-48">회원가입</a>
-                        <a th:href="@{/menus}" class="btn btn-outline-primary w-48">메뉴 보기</a>
+                        <a th:href="@{/users/signup}" class="btn btn-outline-secondary w-48">회원가입</a>
+                        <a th:href="@{/users/menus}" class="btn btn-outline-primary w-48">메뉴 보기</a>
                     </div>
                 </div>
             </div>
