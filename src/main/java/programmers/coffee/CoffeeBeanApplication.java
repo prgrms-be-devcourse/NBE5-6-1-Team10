@@ -1,13 +1,13 @@
-package team10.demo;
+package programmers.coffee;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CoffeebeanApplication {
+public class CoffeeBeanApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CoffeebeanApplication.class, args);
+		SpringApplication.run(CoffeeBeanApplication.class, args);
 	}
 
 }
