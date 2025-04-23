@@ -1,4 +1,4 @@
-# ERD ( Entity-Relationship Diagram)
+# 📝 ERD ( Entity-Relationship Diagram)
 엔티티의 속성과 관계를 표현한 다이어그램 입니다.
 ![image](https://github.com/user-attachments/assets/c16c13f8-6243-49c8-9bdc-15a383167e84)
 
