@@ -1,7 +1,8 @@
 # 🏗️ System Architecture
 서비스 구성 요소 간의 관계 및 주요 흐름을 시각화한 다이어그램입니다.
 
-![시스템 아키텍처 drawio](https://github.com/user-attachments/assets/4107c5ef-83ed-41dc-bcbb-2471eeb13bcf)
+
+![system drawio](https://github.com/user-attachments/assets/1b18592e-efc2-4a88-8297-8906c2e0de78)
 
 ---
 
