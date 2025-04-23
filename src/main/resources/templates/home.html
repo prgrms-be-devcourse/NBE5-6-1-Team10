@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>로그인 | 커피 주문</title>
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        .page-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+<div class="page-container">
+    <!-- Header -->
+    <header class="bg-dark py-4 mb-4">
+        <div class="container text-center text-white">
+            <h1 class="fw-bold">☕ My Coffee</h1>
+            <p class="text-white-50">로그인 후 커피 주문을 시작하세요</p>
+        </div>
+    </header>
+
+    <!-- Main Login Form -->
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-4 shadow">
+                    <h4 class="text-center mb-4">로그인</h4>
+                    <form th:action="@{/login-process}" method="post">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">아이디</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="아이디 입력" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">비밀번호</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호 입력" required />
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-dark px-4 py-2">로그인</button>
+                        </div>
+                    </form>
+                    <hr />
+                    <div class="d-flex justify-content-between mt-3">
+                        <a th:href="@{/signup}" class="btn btn-outline-secondary w-48">회원가입</a>
+                        <a th:href="@{/menus}" class="btn btn-outline-primary w-48">메뉴 보기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (항상 하단 고정) -->
+    <footer class="py-4 bg-dark mt-auto">
+        <div class="container text-white text-center">
+            © 2025 My Coffee Shop. All rights reserved.
+        </div>
+    </footer>
+</div>
+
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/scripts.js}"></script>
+</body>
+</html>
