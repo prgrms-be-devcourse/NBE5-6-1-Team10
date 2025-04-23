@@ -1,15 +1,17 @@
-# NBE5-6-1-Team10
-프로그래머스 백엔드 데브코스 5기 6회차 10팀 1차 프로젝트입니다.
---- 
+# 🏗️ System Architecture
 
-
-
-
-
---- 
-System Architecture
+아래는 본 프로젝트의 전체적인 시스템 아키텍처입니다.  
+서비스 구성 요소 간의 관계 및 주요 흐름을 시각화한 다이어그램입니다.
 
 ![시스템 아키텍처 drawio](https://github.com/user-attachments/assets/4107c5ef-83ed-41dc-bcbb-2471eeb13bcf)
 
 ---
-👉 [ Git Convention ](https://github.com/prgrms-be-devcourse/NBE5-6-1-Team10/wiki/%F0%9F%8C%B1-Git-Commit-Convention)
+
+# 📌 Git Commit Convention
+
+일관성 있는 커밋 메시지를 위해 아래 Git 커밋 컨벤션을 따릅니다.
+
+👉 [Git Commit Convention 바로가기](https://github.com/prgrms-be-devcourse/NBE5-6-1-Team10/wiki/%F0%9F%8C%B1-Git-Commit-Convention)
+
+---
+
