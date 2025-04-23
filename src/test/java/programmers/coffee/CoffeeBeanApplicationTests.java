@@ -1,10 +1,10 @@
-package team10.demo;
+package programmers.coffee;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CoffeebeanApplicationTests {
+class CoffeeBeanApplicationTests {
 
 	@Test
 	void contextLoads() {
