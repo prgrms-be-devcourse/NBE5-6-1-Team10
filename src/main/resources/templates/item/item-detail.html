@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메뉴 상세정보</title>
+</head>
+<body>
+<h1 th:text="${item.name} + ' 상세 정보'">메뉴 상세</h1>
+<p>가격: <span th:text="${item.price} + '원'"></span></p>
+<p>설명: <span th:text="${item.description}"></span></p>
+<p>품절 여부: <span th:text="${item.soldOut ? '품절' : '판매중'}"></span></p>
+<a th:href="@{/menus}">목록으로</a>
+</body>
+</html>

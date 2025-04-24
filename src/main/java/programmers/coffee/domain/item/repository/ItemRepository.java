@@ -5,9 +5,11 @@ import programmers.coffee.domain.item.domain.Item;
 
 import java.util.List;
 
+
 @Mapper
 public interface ItemRepository{
+
     void insertItem(Item item);
-    List<Item> selectAllItems();
-    Item selectItemById(Long itemId);
+    List<Item> findAll();
+    Item findById(Long itemId);
 }
