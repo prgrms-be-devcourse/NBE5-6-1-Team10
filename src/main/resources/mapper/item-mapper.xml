@@ -5,12 +5,19 @@
 
 <mapper namespace="programmers.coffee.domain.order.mapper.ItemMapper">
 
-  <select id="findById" resultType="programmers.coffee.domain.order.domain.Item">
+  <resultMap id="itemResultMap" type="programmers.coffee.domain.order.domain.Item">
+    <id property="itemId" column="item_id"/>
+    <result property="itemName" column="item_name"/>
+    <result property="price" column="price"/>
+    <result property="stockCnt" column="stock_cnt"/>
+  </resultMap>
+
+  <select id="findById" resultMap="itemResultMap">
     SELECT * FROM item
     WHERE item_id = #{itemId}
   </select>
 
-  <select id="findAll" resultType="programmers.coffee.domain.order.domain.Item">
+  <select id="findAll" resultMap="itemResultMap">
     SELECT * FROM item
   </select>
 
