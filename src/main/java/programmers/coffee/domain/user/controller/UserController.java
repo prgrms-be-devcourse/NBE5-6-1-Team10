@@ -1,5 +1,6 @@
 package programmers.coffee.domain.user.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -27,18 +28,19 @@ public class UserController {
     }
 
     @GetMapping("/signup")
-    public String signUpForm(){
-        return "user/signup-Form";
+    public String signUpForm(Model model){
+        model.addAttribute("userSignUpRequest", new UserSignUpRequest());
+        return "user/signup-form";
     }
 
     @PostMapping("/signup")
-    public String signUp(@ModelAttribute UserSignUpRequest request, BindingResult bindingResult){
+    public String signUp(@Valid @ModelAttribute UserSignUpRequest request, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "user/signUp-Form";
+            return "user/signup-form";
         }
 
         userService.signup(request);
-        return "home";
+        return "redirect:/";
     }
 
 }

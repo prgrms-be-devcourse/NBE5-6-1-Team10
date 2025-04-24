@@ -32,27 +32,35 @@
 
     <!-- Main -->
     <main class="container my-5" style="max-width: 500px;">
-        <form th:action="@{/users/signup}" method="post" class="border p-4 rounded shadow-sm bg-light">
+        <form th:action="@{/users/signup}" method="post" class="border p-4 rounded shadow-sm bg-light" th:object="${userSignUpRequest}">
             <h4 class="mb-4 text-center">회원가입</h4>
 
+            <!-- 이름 -->
             <div class="mb-3">
                 <label for="name" class="form-label">이름</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="홍길동" required>
+                <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="홍길동" required>
+                <div class="text-danger small" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
             </div>
 
+            <!-- 이메일 -->
             <div class="mb-3">
                 <label for="email" class="form-label">이메일</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="email@example.com" required>
+                <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="email@example.com" required>
+                <div class="text-danger small" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
             </div>
 
+            <!-- 비밀번호 -->
             <div class="mb-3">
                 <label for="password" class="form-label">비밀번호</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호" required>
+                <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="비밀번호" required>
+                <div class="text-danger small" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
             </div>
 
+            <!-- 우편번호 -->
             <div class="mb-3">
                 <label for="zipcode" class="form-label">우편번호</label>
-                <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="12345" required>
+                <input type="text" class="form-control" id="zipcode" th:field="*{zipCode}" placeholder="12345" required>
+                <div class="text-danger small" th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></div>
             </div>
 
             <div class="d-grid">
