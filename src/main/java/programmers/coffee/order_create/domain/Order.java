@@ -19,18 +19,23 @@ public class Order {
     private String orderStatus;
 
 
-    public static Order create(Long userId, String email, String name, String zipCode, String address, LocalDateTime orderTime, String orderStatus) {
 
-        Order order = new Order();
-        order.setUserId(userId);
-        order.setEmail(email);
-        order.setName(name);
-        order.setZipCode(zipCode);
-        order.setAddress(address);
-        order.setOrderTime(orderTime);
-        order.setOrderStatus(orderStatus);
-        return order;
+    public Order(Long userId, String email,
+        String name, String zipCode, String address,
+        LocalDateTime orderTime, String orderStatus) {
+        this.userId = userId;
+        this.email = email;
+        this.name = name;
+        this.zipCode = zipCode;
+        this.address = address;
+        this.orderTime = orderTime;
+        this.orderStatus = orderStatus;
     }
+
+
+
+
+
 
 
 
