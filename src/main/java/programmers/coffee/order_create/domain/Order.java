@@ -19,5 +19,19 @@ public class Order {
     private String orderStatus;
 
 
+    public static Order create(Long userId, String email, String name, String zipCode, String address, LocalDateTime orderTime, String orderStatus) {
+
+        Order order = new Order();
+        order.setUserId(userId);
+        order.setEmail(email);
+        order.setName(name);
+        order.setZipCode(zipCode);
+        order.setAddress(address);
+        order.setOrderTime(orderTime);
+        order.setOrderStatus(orderStatus);
+        return order;
+    }
+
+
 
 }
