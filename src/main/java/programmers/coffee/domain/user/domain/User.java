@@ -21,11 +21,11 @@ public class User {
     private String email;
     private String password;
     private String zipCode;
-    private String role;
+    private Role role;
 
     @Builder
     private User(String name, String email, String password,
-                 String zipCode, String role) {
+                 String zipCode, Role role) {
         this.name = name;
         this.email = email;
         this.password = password;
