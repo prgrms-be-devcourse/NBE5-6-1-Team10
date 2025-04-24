@@ -45,3 +45,7 @@ application.yml
 application-*.properties
 application-*.yml
 
+# Spring Boot application properties
+/src/main/resources/application.properties
+
+
