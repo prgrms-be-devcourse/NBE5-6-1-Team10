@@ -28,17 +28,17 @@ public class UserController {
 
     @GetMapping("/signup")
     public String signUpForm(){
-        return "user/signup-Form";
+        return "user/signup-form";
     }
 
     @PostMapping("/signup")
     public String signUp(@ModelAttribute UserSignUpRequest request, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "user/signUp-Form";
+            return "user/signup-form";
         }
 
         userService.signup(request);
-        return "home";
+        return "redirect:/home";
     }
 
 }
