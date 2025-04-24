@@ -16,6 +16,15 @@ public class OrderResponseDto {
     private int totalPrice;
     private List<OrderItemResponse> items;
 
+    public OrderResponseDto(String email, String name, String zipCode, String address, int totalPrice, List<OrderItemResponse> items) {
+        this.email = email;
+        this.name = name;
+        this.zipCode = zipCode;
+        this.address = address;
+        this.totalPrice = totalPrice;
+        this.items = items;
+    }
+
     @Getter
     @Setter
     public static class OrderItemResponse{
@@ -33,14 +42,14 @@ public class OrderResponseDto {
     }
 
     public static OrderResponseDto from(Order order, List<OrderItemResponse> items) {
-        OrderResponseDto dto = new OrderResponseDto();
-        dto.setEmail(order.getEmail());
-        dto.setName(order.getName());
-        dto.setZipCode(order.getZipCode());
-        dto.setAddress(order.getAddress());
-        dto.setTotalPrice(order.getTotalPrice());
-        dto.setItems(items);
-        return dto;
+        return new OrderResponseDto(
+            order.getEmail(),
+            order.getName(),
+            order.getZipCode(),
+            order.getAddress(),
+            order.getTotalPrice(),
+            items
+        );
     }
 
 
