@@ -28,7 +28,7 @@ public class OrderController {
     public String orderPage(Model model) {
         List<Item> items = itemMapper.findAll(); // 전체 상품 조회
         model.addAttribute("items", items);
-        return "order"; // templates/order.html
+        return "order/order"; // templates/order/order.html
     }
 
     /**
@@ -36,6 +36,8 @@ public class OrderController {
      */
     @PostMapping("/orders")
     public String createOrder(HttpServletRequest request) {
+        Long userId = (Long) request.getSession().getAttribute("userId"); // 로그인된 유저 ID
+
         String email = request.getParameter("email");
         String address = request.getParameter("address");
         String zipCode = request.getParameter("zipCode");
@@ -44,15 +46,20 @@ public class OrderController {
         Map<String, String[]> paramMap = request.getParameterMap();
 
         for (String key : paramMap.keySet()) {
-            if (key.matches("\\d+")) { // itemId 형태로 넘어오는 키
+            if (key.matches("\\d+")) {
                 int itemCnt = Integer.parseInt(request.getParameter(key));
                 if (itemCnt > 0) {
-                    orderItems.add(new OrderItemDto(Long.parseLong(key), itemCnt));
+                    Long itemId = Long.parseLong(key);
+                    Item item = itemMapper.findById(itemId);
+                    int price = item.getPrice();
+
+
+                    orderItems.add(new OrderItemDto(itemId, itemCnt, price));
                 }
             }
         }
 
-        OrderRequestDto dto = new OrderRequestDto(email, address, zipCode, orderItems);
+        OrderRequestDto dto = new OrderRequestDto(userId, email, address, zipCode, orderItems);
         Long orderId = orderService.createOrder(dto);
 
         return "redirect:/orders/result/" + orderId;
@@ -65,6 +72,6 @@ public class OrderController {
     public String getOrderResult(@PathVariable Long orderId, Model model) {
         OrderResponseDto dto = orderService.getOrderResult(orderId);
         model.addAttribute("dto", dto);
-        return "order-result";
+        return "order/order-result";
     }
 }
