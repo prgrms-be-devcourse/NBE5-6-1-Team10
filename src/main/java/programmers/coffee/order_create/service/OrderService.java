@@ -28,14 +28,15 @@ public class OrderService {
 
     @Transactional
     public Long createOrder(OrderRequestDto dto) {
-        Order order = new Order();
-        order.setUserId(dto.getUserId());
-        order.setEmail(dto.getEmail());
-        order.setName(dto.getName());
-        order.setZipCode(dto.getZipCode());
-        order.setAddress(dto.getAddress());
-        order.setOrderTime(LocalDateTime.now());
-        order.setOrderStatus("READY");
+        Order order = Order.create(
+            dto.getUserId(),
+            dto.getEmail(),
+            dto.getName(),
+            dto.getZipCode(),
+            dto.getAddress(),
+            LocalDateTime.now(),
+            "READY"
+        );
 
         orderMapper.insertOrder(order); // orderId 생성됨
 
