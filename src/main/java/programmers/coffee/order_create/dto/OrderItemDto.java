@@ -21,29 +21,7 @@ public class OrderItemDto {
         this.price = price;
     }
 
-    public Long getItemId() {
-        return itemId;
-    }
 
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
-    }
-
-    public int getItemCnt() {
-        return itemCnt;
-    }
-
-    public void setItemCnt(int itemCnt) {
-        this.itemCnt = itemCnt;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
 }
 
 
