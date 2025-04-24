@@ -1,4 +1,4 @@
-package programmers.coffee.order_create.domain;
+package programmers.coffee.domain.order.domain;
 
 import java.time.LocalDateTime;
 import lombok.Getter;

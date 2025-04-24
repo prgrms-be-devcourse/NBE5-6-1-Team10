@@ -3,9 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//KO"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="programmers.coffee.order_create.mapper.OrderMapper">
+<mapper namespace="programmers.coffee.domain.order.mapper.OrderMapper">
 
-  <resultMap id="OrderItemResultMap" type="programmers.coffee.order_create.domain.OrderItem">
+  <resultMap id="OrderItemResultMap" type="programmers.coffee.domain.order.domain.OrderItem">
     <result property="orderId" column="order_id"/>
     <result property="itemId" column="item_id"/>
     <result property="itemName" column="item_name"/>
@@ -27,7 +27,7 @@
     UPDATE `order` SET total_price = #{totalPrice} WHERE order_id = #{orderId}
   </update>
 
-  <select id="selectOrderById" resultType="programmers.coffee.order_create.domain.Order">
+  <select id="selectOrderById" resultType="programmers.coffee.domain.order.domain.Order">
     SELECT * FROM `order` WHERE order_id = #{orderId}
   </select>
 

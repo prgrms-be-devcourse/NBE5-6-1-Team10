@@ -1,10 +1,10 @@
-package programmers.coffee.order_create.mapper;
+package programmers.coffee.domain.order.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import programmers.coffee.order_create.domain.Order;
-import programmers.coffee.order_create.domain.OrderItem;
+import programmers.coffee.domain.order.domain.Order;
+import programmers.coffee.domain.order.domain.OrderItem;
 
 @Mapper
 public interface OrderMapper {

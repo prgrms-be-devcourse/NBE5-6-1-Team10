@@ -1,4 +1,4 @@
-package programmers.coffee.order_create.dto;
+package programmers.coffee.domain.order.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-import programmers.coffee.order_create.domain.Order;
+import programmers.coffee.domain.order.domain.Order;
 
 @Getter
 @Setter

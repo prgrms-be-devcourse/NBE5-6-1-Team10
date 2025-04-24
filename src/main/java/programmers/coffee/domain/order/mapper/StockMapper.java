@@ -1,4 +1,4 @@
-package programmers.coffee.order_create.mapper;
+package programmers.coffee.domain.order.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

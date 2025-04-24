@@ -1,4 +1,4 @@
-package programmers.coffee.order_create.exception;
+package programmers.coffee.domain.order.exception;
 
 public class OutOfStockException extends RuntimeException {
 

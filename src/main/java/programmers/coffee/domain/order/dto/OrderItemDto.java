@@ -1,11 +1,11 @@
-package programmers.coffee.order_create.dto;
+package programmers.coffee.domain.order.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
-import programmers.coffee.order_create.domain.Item;
-import programmers.coffee.order_create.domain.OrderItem;
+import programmers.coffee.domain.order.domain.Item;
+import programmers.coffee.domain.order.domain.OrderItem;
 
 @Getter
 @Setter

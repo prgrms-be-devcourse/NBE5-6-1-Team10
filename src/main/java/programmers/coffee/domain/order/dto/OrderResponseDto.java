@@ -1,10 +1,10 @@
-package programmers.coffee.order_create.dto;
+package programmers.coffee.domain.order.dto;
 
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import programmers.coffee.order_create.domain.Order;
-import programmers.coffee.order_create.domain.OrderItem;
+import programmers.coffee.domain.order.domain.Order;
+import programmers.coffee.domain.order.domain.OrderItem;
 
 @Getter@Setter
 public class OrderResponseDto {
