@@ -27,7 +27,7 @@ public class UserSignUpRequest {
                 .email(this.email)
                 .password(password)
                 .zipCode(this.zipCode)
-                .role(role.toString())
+                .role(role)
                 .build();
     }
 
