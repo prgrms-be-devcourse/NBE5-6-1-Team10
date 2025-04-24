@@ -5,9 +5,17 @@
 
 <mapper namespace="programmers.coffee.order_create.mapper.OrderMapper">
 
+  <resultMap id="OrderItemResultMap" type="programmers.coffee.order_create.domain.OrderItem">
+    <result property="orderId" column="order_id"/>
+    <result property="itemId" column="item_id"/>
+    <result property="itemName" column="item_name"/>
+    <result property="orderCnt" column="order_cnt"/>
+    <result property="price" column="price"/>
+  </resultMap>
+
   <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
-    INSERT INTO orders (email, name, zip_code, address, order_time, order_status)
-    VALUES (#{email}, #{name}, #{zipCode}, #{address}, #{orderTime}, #{orderStatus})
+    INSERT INTO `order` (user_id, email, name, zip_code, address, order_time, order_status)
+    VALUES (#{userId}, #{email}, #{name}, #{zipCode}, #{address}, #{orderTime}, #{orderStatus})
   </insert>
 
   <insert id="insertOrderItem" useGeneratedKeys="true" keyProperty="orderItemId">
@@ -16,15 +24,20 @@
   </insert>
 
   <update id="updateTotalPrice">
-    UPDATE orders SET total_price = #{totalPrice} WHERE order_id = #{orderId}
+    UPDATE `order` SET total_price = #{totalPrice} WHERE order_id = #{orderId}
   </update>
 
   <select id="selectOrderById" resultType="programmers.coffee.order_create.domain.Order">
-    SELECT * FROM orders WHERE order_id = #{orderId}
+    SELECT * FROM `order` WHERE order_id = #{orderId}
   </select>
 
-  <select id="selectOrderItemsByOrderId" resultType="programmers.coffee.order_create.domain.OrderItem">
-    SELECT oi.*, i.item_name
+  <select id="selectOrderItemsByOrderId" resultMap="OrderItemResultMap">
+    SELECT
+      oi.order_id,
+      oi.item_id,
+      i.item_name,
+      oi.order_cnt,
+      oi.price
     FROM order_item oi
            JOIN item i ON oi.item_id = i.item_id
     WHERE oi.order_id = #{orderId}
