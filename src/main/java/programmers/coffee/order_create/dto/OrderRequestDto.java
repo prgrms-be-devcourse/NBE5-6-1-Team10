@@ -1,10 +1,12 @@
 package programmers.coffee.order_create.dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import programmers.coffee.order_create.domain.Order;
 
 @Getter
 @Setter
@@ -26,6 +28,22 @@ public class OrderRequestDto {
         this.zipCode = zipCode;
         this.items = orderItems;
     }
+
+    public Order toEntity() {
+        Order order = new Order(
+            this.userId,
+            this.email,
+            this.name,
+            this.zipCode,
+            this.address,
+            LocalDateTime.now(),
+            "READY"
+        );
+        return order;
+    }
+
+
+
 
 
 
