@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class Order {
 
+    private Long userId;
     private Long orderId;
     private String email;
     private String name;

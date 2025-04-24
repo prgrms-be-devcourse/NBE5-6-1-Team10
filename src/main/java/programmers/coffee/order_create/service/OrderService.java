@@ -29,6 +29,7 @@ public class OrderService {
     @Transactional
     public Long createOrder(OrderRequestDto dto) {
         Order order = new Order();
+        order.setUserId(dto.getUserId());
         order.setEmail(dto.getEmail());
         order.setName(dto.getName());
         order.setZipCode(dto.getZipCode());

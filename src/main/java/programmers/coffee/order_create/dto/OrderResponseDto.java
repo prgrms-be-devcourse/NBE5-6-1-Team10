@@ -22,7 +22,8 @@ public class OrderResponseDto {
         private int price;
     }
 
-    public OrderResponseDto() {
-    }
+
+
+
 }
 
