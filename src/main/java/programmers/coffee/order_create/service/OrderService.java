@@ -28,15 +28,9 @@ public class OrderService {
 
     @Transactional
     public Long createOrder(OrderRequestDto dto) {
-        Order order = Order.create(
-            dto.getUserId(),
-            dto.getEmail(),
-            dto.getName(),
-            dto.getZipCode(),
-            dto.getAddress(),
-            LocalDateTime.now(),
-            "READY"
-        );
+        Order order = dto.toEntity();
+
+
 
         orderMapper.insertOrder(order); // orderId 생성됨
 
@@ -51,11 +45,7 @@ public class OrderService {
 
             stockMapper.decreaseStock(item.getItemId(), itemDto.getItemCnt());
 
-            OrderItem orderItem = new OrderItem();
-            orderItem.setOrderId(order.getOrderId());
-            orderItem.setItemId(item.getItemId());
-            orderItem.setOrderCnt(itemDto.getItemCnt());
-            orderItem.setPrice(item.getPrice() * itemDto.getItemCnt());
+            OrderItem orderItem = itemDto.toEntity(order.getOrderId(), item);
 
             totalPrice += orderItem.getPrice();
             orderMapper.insertOrderItem(orderItem);
@@ -69,23 +59,11 @@ public class OrderService {
         Order order = orderMapper.selectOrderById(orderId);
         List<OrderItem> items = orderMapper.selectOrderItemsByOrderId(orderId);
 
-        OrderResponseDto dto = new OrderResponseDto();
-        dto.setEmail(order.getEmail());
-        dto.setName(order.getName());
-        dto.setZipCode(order.getZipCode());
-        dto.setAddress(order.getAddress());
-        dto.setTotalPrice(order.getTotalPrice());
+        List<OrderResponseDto.OrderItemResponse> itemDtos = items.stream()
+            .map(OrderResponseDto.OrderItemResponse::from)
+            .collect(Collectors.toList());
 
-        List<OrderResponseDto.OrderItemResponse> itemDtos = items.stream().map(oi -> {
-            OrderResponseDto.OrderItemResponse r = new OrderResponseDto.OrderItemResponse();
-            r.setItemName(oi.getItemName());
-            r.setItemCnt(oi.getOrderCnt());
-            r.setPrice(oi.getPrice());
-            return r;
-        }).collect(Collectors.toList());
-
-        dto.setItems(itemDtos);
-        return dto;
+        return OrderResponseDto.from(order, itemDtos);
     }
 
 }
