@@ -21,6 +21,6 @@ public class ItemRepositoryTest {
         item.setPrice(4500);
         item.setSoldOut(false);
 
-        //itemRepository.insertItem(item);
+        itemRepository.insertItem(item);
     }
 }
