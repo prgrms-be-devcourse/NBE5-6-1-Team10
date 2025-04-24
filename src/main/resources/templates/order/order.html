@@ -22,7 +22,7 @@
 </header>
 
 
-
+<form method="post" action="/orders">
 <div class="container">
   <!-- 상품 카드 반복 예시 -->
   <div class="product" th:each="item : ${items}">
@@ -36,14 +36,13 @@
   <!-- 주문 정보 입력 -->
   <div class="form-wrapper">
     <h3>주문 정보 입력</h3>
-    <form method="post" action="/orders">
+
       <input name="email" type="email" placeholder="이메일">
       <input name="address" type="text" placeholder="주소">
       <input name="zipCode" type="text" placeholder="우편번호">
       <button type="submit">주문하기</button>
-    </form>
   </div>
 </div>
-
+</form>
 </body>
 </html>
