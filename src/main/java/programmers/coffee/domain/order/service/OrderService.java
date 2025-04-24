@@ -29,6 +29,10 @@ public class OrderService {
     public Long createOrder(OrderRequestDto dto) {
         Order order = dto.toEntity();
 
+        for (OrderItemDto itemDto : dto.getItems()) {
+            System.out.println("itemDto = " + itemDto.getItemId() + ", count = " + itemDto.getItemCnt());
+        }
+
 
 
         orderMapper.insertOrder(order); // orderId 생성됨
@@ -64,5 +68,6 @@ public class OrderService {
 
         return OrderResponseDto.from(order, itemDtos);
     }
+
 
 }

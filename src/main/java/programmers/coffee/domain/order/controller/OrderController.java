@@ -47,18 +47,24 @@ public class OrderController {
 
         for (String key : paramMap.keySet()) {
             if (key.matches("\\d+")) {
-                int itemCnt = Integer.parseInt(request.getParameter(key));
-                if (itemCnt > 0) {
-                    Long itemId = Long.parseLong(key);
-                    Item item = itemMapper.findById(itemId);
-                    int price = item.getPrice();
+                String paramValue = request.getParameter(key);
 
+                if (paramValue != null && !paramValue.isBlank()) {
+                    try {
+                        int itemCnt = Integer.parseInt(paramValue);
+                        if (itemCnt > 0) {
+                            Long itemId = Long.parseLong(key);
+                            Item item = itemMapper.findById(itemId);
+                            int price = item.getPrice();
 
-                    orderItems.add(new OrderItemDto(itemId, itemCnt, price));
+                            orderItems.add(new OrderItemDto(itemId, itemCnt, price));
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("잘못된 입력: itemId=" + key + ", value=" + paramValue);
+                    }
                 }
             }
         }
-
         OrderRequestDto dto = new OrderRequestDto(userId, email, address, zipCode, orderItems);
         Long orderId = orderService.createOrder(dto);
 
