@@ -10,7 +10,6 @@
     <result property="itemName" column="item_name"/>
     <result property="description" column="description"/>
     <result property="price" column="price"/>
-    <result property="soldOut" column="sold_out"/>
     <result property="stockCnt" column="stock_cnt"/>
   </resultMap>
 
@@ -23,8 +22,8 @@
   </select>
 
   <insert id="insertItem" parameterType="programmers.coffee.domain.item.domain.Item">
-    INSERT INTO item(item_name, description, price, sold_out, stock_cnt)
-    VALUES(#{itemName}, #{description}, #{price}, #{soldOut}, #{stockCnt})
+    INSERT INTO item(item_name, description, price, stock_cnt)
+    VALUES(#{itemName}, #{description}, #{price}, #{stockCnt})
   </insert>
 
 </mapper>
