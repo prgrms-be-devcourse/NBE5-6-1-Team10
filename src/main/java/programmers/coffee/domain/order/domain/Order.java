@@ -2,10 +2,12 @@ package programmers.coffee.domain.order.domain;
 
 import java.time.LocalDateTime;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Order {
 
     private Long userId;
@@ -31,6 +33,17 @@ public class Order {
         this.orderTime = orderTime;
         this.orderStatus = orderStatus;
     }
+
+    public Order(Long userId, String email, String address, String zipCode) {
+        this.userId = userId;
+        this.email = email;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.orderTime = LocalDateTime.now();
+        this.orderStatus = "READY";
+    }
+
+
 
 
 
