@@ -11,12 +11,12 @@
     <result property="description" column="description"/>
     <result property="price" column="price"/>
     <result property="imageUrl" column="image_url"/>
-    <result property="stock" column="stock"/>
+    <result property="stockCnt" column="stock_cnt"/>
   </resultMap>
 
   <insert id="insertItem" parameterType="programmers.coffee.domain.item.dto.ItemRequestDto">
-    INSERT INTO item (item_name, description, price, image_url, stock)
-    VALUES (#{itemName}, #{description}, #{price}, #{imageUrl}, #{stock})
+    INSERT INTO item (item_name, description, price, image_url, item.stock_cnt)
+    VALUES (#{itemName}, #{description}, #{price}, #{imageUrl}, #{stockCnt})
   </insert>
 
   <select id="selectAllItems" resultMap="ItemResultMap">
