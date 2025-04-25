@@ -100,37 +100,30 @@
     <p>원하는 커피를 선택하고 주문 정보를 입력해 주세요</p>
 </header>
 
+<div class="main-container">
 
-<!--<div class="container">-->
-<!--  &lt;!&ndash; 상품 카드 반복 예시 &ndash;&gt;-->
-<!--  <div class="product" th:each="item : ${items}">-->
-<!--    <img th:src="@{/images/coffee.png}" alt="커피">-->
-<!--    <h3 th:text="${item.itemName}"></h3>-->
-<!--    <p th:text="'가격: ' + ${item.price} + '원'"></p>-->
-<!--    <p th:text="'재고: ' + ${item.stockCnt} + '개'"></p>-->
-<!--    <input type="number" min="0" th:name="${item.itemId}" placeholder="주문 수량">-->
-<!--  </div>-->
-
-<!-- 상품 등록한 정보를 전달 받은 표시 영역 -->
-<div class="container">
-    <!-- 상품 카드 반복 -->
-    <div class="product" th:each="item : ${items}">
-        <img th:src="${item.imageUrl}" alt="상품 이미지">
-        <h3 th:text="${item.itemName}"></h3>
-        <p th:text="'가격: ' + ${item.price} + '원'"></p>
-        <p th:text="'재고: ' + ${item.stock} + '개 남음'"></p>
-        <input type="number" min="0" th:name="${item.itemId}" placeholder="주문 수량">
+    <!-- 상품 리스트 -->
+    <div class="products-container">
+        <div class="product" th:each="item : ${items}">
+            <img th:src="${item.imageUrl}" alt="상품 이미지">
+            <h3 th:text="${item.itemName}"></h3>
+            <p th:text="'가격: ' + ${item.price} + '원'"></p>
+            <p th:text="'재고: ' + ${item.stockCnt} + '개 남음'"></p>
+            <input type="number" min="0" th:name="${item.itemId}" placeholder="주문 수량">
+        </div>
     </div>
-</div>
-<!-- 주문 정보 입력 -->
-<div class="form-wrapper">
-    <h3>주문 정보 입력</h3>
-    <form method="post" action="/orders">
-        <input name="email" type="email" placeholder="이메일">
-        <input name="address" type="text" placeholder="주소">
-        <input name="zipCode" type="text" placeholder="우편번호">
-        <button type="submit">주문하기</button>
-    </form>
+
+    <!-- 주문 정보 폼 -->
+    <div class="form-wrapper">
+        <form class="form-box" method="post" action="/orders">
+            <h3>주문 정보 입력</h3>
+            <input name="email" type="email" placeholder="이메일" required>
+            <input name="address" type="text" placeholder="주소" required>
+            <input name="zipCode" type="text" placeholder="우편번호" required>
+            <button type="submit">주문하기</button>
+        </form>
+    </div>
+
 </div>
 
 </body>
