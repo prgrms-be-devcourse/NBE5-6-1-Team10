@@ -1,4 +1,4 @@
-<!-- 📄 order.html: 주문 입력 화면 -->
+<!-- 📄 orderMember.html: 주문 입력 화면 -->
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -22,7 +22,7 @@
 </header>
 
 
-<form method="post" action="/orders/team">
+<form method="post" action="/orders/member">
 <div class="container">
   <!-- 상품 카드 반복 예시 -->
   <div class="product" th:each="item : ${items}">
