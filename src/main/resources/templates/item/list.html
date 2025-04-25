@@ -88,7 +88,7 @@
         <h3 th:text="${item.itemName}">커피 이름</h3>
         <p th:text="${item.description}">설명</p>
         <p th:text="'가격: ' + ${item.price} + '원'"></p>
-        <p th:text="'재고: ' + ${item.stock} + '개'"></p>
+        <p th:text="'재고: ' + ${item.stockCnt} + '개'"></p>
         <a th:href="@{|/items/${item.itemId}|}">상세 보기</a>
     </div>
 </div>
