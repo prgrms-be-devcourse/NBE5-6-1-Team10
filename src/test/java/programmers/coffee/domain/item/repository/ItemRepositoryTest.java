@@ -25,7 +25,6 @@ public class ItemRepositoryTest {
         dto.setPrice(5000);
         dto.setStock(3);
         dto.setImageUrl("/upload/test.jpg");
-        dto.setSoldOut(false);
 
         // when
         itemRepository.insertItem(dto);
