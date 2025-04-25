@@ -1,19 +1,85 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>카페 메뉴판</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .nav-links a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .menu-container {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .menu-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px;
+            text-align: center;
+        }
+        .menu-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .menu-card h3 {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        .menu-card p {
+            font-size: 14px;
+            color: #555;
+        }
+        .menu-card a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-<h1>☕ 카페 메뉴판</h1>
-<a th:href="@{/menus/new}">새 메뉴 등록</a>
-<ul>
-    <li th:each="item : ${items}">
-        <a th:href="@{'/menus/' + ${item.id}}">
-            <span th:text="${item.name}"></span> -
-            <span th:text="${item.price} + '원'"></span>
-        </a>
-    </li>
-</ul>
+<header>
+    <a href="/items/form" class="nav-links">메뉴 등록</a>
+    <div class="logo">My Cafe</div>
+    <a href="/orders" class="nav-links">주문하기</a>
+</header>
+<div class="banner"></div>
+
+<div class="menu-container">
+    <div th:each="item : ${items}" class="menu-card">
+        <img th:src="${item.imageUrl}" alt="상품 이미지"/>
+        <h3 th:text="${item.itemName}">커피 이름</h3>
+        <p th:text="${item.description}">설명</p>
+        <p th:text="'가격: ' + ${item.price} + '원'"></p>
+        <p th:text="'재고: ' + ${item.stock} + '개'"></p>
+        <a th:href="@{|/items/${item.itemId}|}">상세 보기</a>
+    </div>
+</div>
 </body>
 </html>

@@ -2,47 +2,97 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>🍪 커피 주문</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f9f9f9; }
-    header { background: #2c2c2c; color: white; text-align: center; padding: 20px; }
-    .container { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; padding: 20px; }
-    .product, .form-wrapper { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 250px; }
-    .product img { width: 100%; }
-    .product input, .form-wrapper input { width: 100%; padding: 8px; margin-top: 8px; }
-    .form-wrapper button { padding: 10px; background: #2c2c2c; color: white; border: none; cursor: pointer; margin-top: 10px; }
-  </style>
+    <meta charset="UTF-8">
+    <title>🍪 커피 주문</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+        }
+
+        header {
+            background: #2c2c2c;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product, .form-wrapper {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 250px;
+        }
+
+        .product img {
+            width: 100%;
+        }
+
+        .product input, .form-wrapper input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 8px;
+        }
+
+        .form-wrapper button {
+            padding: 10px;
+            background: #2c2c2c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 
 <header>
-  <h1>🍭 커피 주문</h1>
-  <p>원하는 커피를 선택하고 주문 정보를 입력해 주세요</p>
+    <h1>🍭 커피 주문</h1>
+    <p>원하는 커피를 선택하고 주문 정보를 입력해 주세요</p>
 </header>
 
 
+<!--<div class="container">-->
+<!--  &lt;!&ndash; 상품 카드 반복 예시 &ndash;&gt;-->
+<!--  <div class="product" th:each="item : ${items}">-->
+<!--    <img th:src="@{/images/coffee.png}" alt="커피">-->
+<!--    <h3 th:text="${item.itemName}"></h3>-->
+<!--    <p th:text="'가격: ' + ${item.price} + '원'"></p>-->
+<!--    <p th:text="'재고: ' + ${item.stockCnt} + '개'"></p>-->
+<!--    <input type="number" min="0" th:name="${item.itemId}" placeholder="주문 수량">-->
+<!--  </div>-->
 
+<!-- 상품 등록한 정보를 전달 받은 표시 영역 -->
 <div class="container">
-  <!-- 상품 카드 반복 예시 -->
-  <div class="product" th:each="item : ${items}">
-    <img th:src="@{/images/coffee.png}" alt="커피">
-    <h3 th:text="${item.itemName}"></h3>
-    <p th:text="'가격: ' + ${item.price} + '원'"></p>
-    <p th:text="'재고: ' + ${item.stockCnt} + '개'"></p>
-    <input type="number" min="0" th:name="${item.itemId}" placeholder="주문 수량">
-  </div>
-
-  <!-- 주문 정보 입력 -->
-  <div class="form-wrapper">
+    <!-- 상품 카드 반복 -->
+    <div class="product" th:each="item : ${items}">
+        <img th:src="${item.imageUrl}" alt="상품 이미지">
+        <h3 th:text="${item.itemName}"></h3>
+        <p th:text="'가격: ' + ${item.price} + '원'"></p>
+        <p th:text="'재고: ' + ${item.stock} + '개 남음'"></p>
+        <input type="number" min="0" th:name="${item.itemId}" placeholder="주문 수량">
+    </div>
+</div>
+<!-- 주문 정보 입력 -->
+<div class="form-wrapper">
     <h3>주문 정보 입력</h3>
     <form method="post" action="/orders">
-      <input name="email" type="email" placeholder="이메일">
-      <input name="address" type="text" placeholder="주소">
-      <input name="zipCode" type="text" placeholder="우편번호">
-      <button type="submit">주문하기</button>
+        <input name="email" type="email" placeholder="이메일">
+        <input name="address" type="text" placeholder="주소">
+        <input name="zipCode" type="text" placeholder="우편번호">
+        <button type="submit">주문하기</button>
     </form>
-  </div>
 </div>
 
 </body>

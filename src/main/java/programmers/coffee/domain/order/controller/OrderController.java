@@ -1,9 +1,12 @@
 package programmers.coffee.domain.order.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import programmers.coffee.domain.item.dto.ItemResponseDto;
+import programmers.coffee.domain.item.repository.ItemRepository;
 import programmers.coffee.domain.order.domain.Item;
 import programmers.coffee.domain.order.dto.OrderItemDto;
 import programmers.coffee.domain.order.dto.OrderRequestDto;
@@ -21,12 +24,20 @@ public class OrderController {
     private final OrderService orderService;
     private final ItemMapper itemMapper;
 
+    // item 패키지의 ItemRepository 의존 주입 필요 상황
+    @Autowired
+    private ItemRepository itemRepository;
     /**
      * 주문 페이지 요청
      */
     @GetMapping("/orders")
     public String orderPage(Model model) {
+        /*
+        // itemMapper.findAll();을하면 이 findAll()은 item 패키지의 정보를 못 받아옴
+        // 그래서 ItemRepository의 selectAllItems 의 기능 수행해야함
         List<Item> items = itemMapper.findAll(); // 전체 상품 조회
+        * */
+        List<ItemResponseDto> items = itemRepository.selectAllItems();
         model.addAttribute("items", items);
         return "order/order"; // templates/order/order.html
     }
@@ -74,4 +85,6 @@ public class OrderController {
         model.addAttribute("dto", dto);
         return "order/order-result";
     }
+
+
 }

@@ -2,46 +2,59 @@ package programmers.coffee.domain.item.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import programmers.coffee.domain.item.domain.Item;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import programmers.coffee.domain.item.dto.ItemRequestDto;
 import programmers.coffee.domain.item.service.ItemService;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/items")
+@RequiredArgsConstructor
 public class ItemController {
 
     private final ItemService itemService;
 
     @GetMapping
-    public String list(Model model) {
-        List<Item> items = itemService.findAll();
-        model.addAttribute("items", items);
+    public String itemList(Model model) {
+        model.addAttribute("items", itemService.findAllItems());
         return "item/list";
     }
 
-    @GetMapping("/{id}")
-    public String detail(@PathVariable Long id, Model model) {
-        Item item = itemService.findById(id);
-        model.addAttribute("item", item);
-        return "item/detail";
-    }
+    @GetMapping("/form")
+    public String itemForm(Model model) {
+        File uploadDir = new File("src/main/resources/static/upload");
+        File[] files = uploadDir.listFiles();
 
-    @GetMapping("/new")
-    public String form() {
+        List<String> imageUrls = new ArrayList<>();
+        if (files != null) {
+            for (File file : files) {
+                imageUrls.add("/upload/" + file.getName());
+            }
+        }
+
+        model.addAttribute("imageUrls", imageUrls);
         return "item/form";
     }
 
-    @PostMapping
-    public String save(Item item) {
-        itemService.save(item);
+
+    @PostMapping("/new")
+    public String registerItem(@ModelAttribute ItemRequestDto dto) {
+        itemService.saveItem(dto);
         return "redirect:/items";
+    }
+
+
+    @GetMapping("/{id}")
+    public String itemDetail(@PathVariable Long id, Model model) {
+        model.addAttribute("item", itemService.findItemById(id));
+        return "item/detail";
     }
 }
