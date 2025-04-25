@@ -43,7 +43,7 @@ public class OrderService {
                 throw new IllegalArgumentException("해당 상품이 존재하지 않습니다.");
             }
 
-            if (item.getStockCnt() < itemDto.getItemCnt()) {
+            if (item.getStockCount() < itemDto.getItemCnt()) {
                 throw new OutOfStockException("[" + item.getItemName() + "] 재고 부족");
             }
 
@@ -90,7 +90,7 @@ public class OrderService {
                 throw new IllegalArgumentException("해당 상품이 존재하지 않습니다.");
             }
 
-            if (item.getStockCnt() < itemDto.getItemCnt()) {
+            if (item.getStockCount() < itemDto.getItemCnt()) {
                 throw new OutOfStockException("[" + item.getItemName() + "] 재고 부족");
             }
 
