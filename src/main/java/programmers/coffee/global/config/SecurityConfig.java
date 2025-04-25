@@ -2,6 +2,7 @@ package programmers.coffee.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,7 +23,7 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(
                 (auth) -> auth
-                    .requestMatchers("/", "/users/login", "/users/login-process", "/users/signup", "/orders", "/orders/result/").permitAll()
+                    .requestMatchers("/", "/users/login", "/users/login-process", "/users/signup").permitAll()
                     .requestMatchers("/css/**", "/assets/**", "/js/**","/items","items/","items/new").permitAll()
                     .requestMatchers("/", "/users/login", "/users/login-process", "/users/signup").permitAll()
                     .requestMatchers(HttpMethod.GET, "/orders").permitAll()
