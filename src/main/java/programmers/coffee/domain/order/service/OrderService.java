@@ -69,5 +69,35 @@ public class OrderService {
         return OrderResponseDto.from(order, itemDtos);
     }
 
+    @Transactional
+    public Long createTeamOrder(Long userId, String email, String address, String zipCode, List<OrderItemDto> items) {
+        // 주문 엔티티 생성
+        Order order = new Order(userId, email, address, zipCode);
+
+        // 주문 먼저 등록 (order_id 생성됨)
+        orderMapper.insertOrder(order);
+
+        int totalPrice = 0;
+        for (OrderItemDto itemDto : items) {
+            Item item = itemMapper.findById(itemDto.getItemId());
+
+            if (item.getStockCnt() < itemDto.getItemCnt()) {
+                throw new OutOfStockException("[" + item.getItemName() + "] 재고 부족");
+            }
+
+            stockMapper.decreaseStock(item.getItemId(), itemDto.getItemCnt());
+
+            OrderItem orderItem = itemDto.toEntity(order.getOrderId(), item);
+            totalPrice += orderItem.getPrice();
+
+            orderMapper.insertOrderItem(orderItem);
+        }
+
+        orderMapper.updateTotalPrice(order.getOrderId(), totalPrice);
+        return order.getOrderId();
+    }
+
+
+
 
 }
