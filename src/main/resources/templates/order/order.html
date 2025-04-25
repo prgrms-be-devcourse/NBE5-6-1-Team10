@@ -43,6 +43,10 @@
       <button type="submit">주문하기</button>
   </div>
 </div>
+
+  <div th:if="${errorMessage}" style="color: red; margin-top: 10px;">
+    <p th:text="${errorMessage}"></p>
+  </div>
 </form>
 </body>
 </html>
