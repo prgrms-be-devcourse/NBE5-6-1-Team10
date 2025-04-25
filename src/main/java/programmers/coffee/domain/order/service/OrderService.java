@@ -5,14 +5,14 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import programmers.coffee.domain.order.domain.Item;
+import programmers.coffee.domain.item.domain.Item;
+import programmers.coffee.domain.item.repository.ItemRepository;
 import programmers.coffee.domain.order.domain.Order;
 import programmers.coffee.domain.order.domain.OrderItem;
 import programmers.coffee.domain.order.dto.OrderItemDto;
 import programmers.coffee.domain.order.dto.OrderRequestDto;
 import programmers.coffee.domain.order.dto.OrderResponseDto;
 import programmers.coffee.domain.order.exception.OutOfStockException;
-import programmers.coffee.domain.order.mapper.ItemMapper;
 import programmers.coffee.domain.order.mapper.OrderMapper;
 import programmers.coffee.domain.order.mapper.StockMapper;
 
@@ -20,9 +20,8 @@ import programmers.coffee.domain.order.mapper.StockMapper;
 @RequiredArgsConstructor
 public class OrderService {
 
-
     private final OrderMapper orderMapper;
-    private final ItemMapper itemMapper;
+    private final ItemRepository itemRepository;
     private final StockMapper stockMapper; // 재고 차감용
 
     @Transactional
@@ -33,14 +32,16 @@ public class OrderService {
             System.out.println("itemDto = " + itemDto.getItemId() + ", count = " + itemDto.getItemCnt());
         }
 
-
-
         orderMapper.insertOrder(order); // orderId 생성됨
 
         int totalPrice = 0;
 
         for (OrderItemDto itemDto : dto.getItems()) {
-            Item item = itemMapper.findById(itemDto.getItemId());
+            programmers.coffee.domain.item.domain.Item item = itemRepository.findById(itemDto.getItemId());
+
+            if (item == null) {
+                throw new IllegalArgumentException("해당 상품이 존재하지 않습니다.");
+            }
 
             if (item.getStockCnt() < itemDto.getItemCnt()) {
                 throw new OutOfStockException("[" + item.getItemName() + "] 재고 부족");
@@ -49,14 +50,15 @@ public class OrderService {
             stockMapper.decreaseStock(item.getItemId(), itemDto.getItemCnt());
 
             OrderItem orderItem = itemDto.toEntity(order.getOrderId(), item);
-
             totalPrice += orderItem.getPrice();
+
             orderMapper.insertOrderItem(orderItem);
         }
 
         orderMapper.updateTotalPrice(order.getOrderId(), totalPrice);
         return order.getOrderId();
     }
+
 
     public OrderResponseDto getOrderResult(Long orderId) {
         Order order = orderMapper.selectOrderById(orderId);
@@ -70,16 +72,23 @@ public class OrderService {
     }
 
     @Transactional
-    public Long createTeamOrder(Long userId, String email, String address, String zipCode, List<OrderItemDto> items) {
-        // 주문 엔티티 생성
-        Order order = new Order(userId, email, address, zipCode);
+    public Long createTeamOrder(OrderRequestDto dto) {
+        Order order = dto.toEntity();
 
-        // 주문 먼저 등록 (order_id 생성됨)
-        orderMapper.insertOrder(order);
+        for (OrderItemDto itemDto : dto.getItems()) {
+            System.out.println("itemDto = " + itemDto.getItemId() + ", count = " + itemDto.getItemCnt());
+        }
+
+        orderMapper.insertOrder(order); // orderId 생성됨
 
         int totalPrice = 0;
-        for (OrderItemDto itemDto : items) {
-            Item item = itemMapper.findById(itemDto.getItemId());
+
+        for (OrderItemDto itemDto : dto.getItems()) {
+            programmers.coffee.domain.item.domain.Item item = itemRepository.findById(itemDto.getItemId());
+
+            if (item == null) {
+                throw new IllegalArgumentException("해당 상품이 존재하지 않습니다.");
+            }
 
             if (item.getStockCnt() < itemDto.getItemCnt()) {
                 throw new OutOfStockException("[" + item.getItemName() + "] 재고 부족");
@@ -96,8 +105,5 @@ public class OrderService {
         orderMapper.updateTotalPrice(order.getOrderId(), totalPrice);
         return order.getOrderId();
     }
-
-
-
 
 }
