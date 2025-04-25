@@ -8,5 +8,5 @@ public class Item {
     private String itemName;
     private String description;
     private int price;
-    private int stockCnt;
+    private int stockCount;
 }

@@ -22,28 +22,25 @@
 </header>
 
 
-<form method="post" action="/orders">
+<form method="post" action="/orders/team">
 <div class="container">
   <!-- 상품 카드 반복 예시 -->
   <div class="product" th:each="item : ${items}">
     <img th:src="@{/images/coffee.png}" alt="커피">
     <h3 th:text="${item.itemName}"></h3>
     <p th:text="'가격: ' + ${item.price} + '원'"></p>
-    <p th:text="'재고: ' + ${item.stockCnt} + '개'"></p>
+    <p th:text="'재고: ' + ${item.stockCount} + '개'"></p>
     <input type="number" min="0" th:name="${item.itemId}" placeholder="주문 수량">
   </div>
 
   <!-- 주문 정보 입력 -->
   <div class="form-wrapper">
     <h3>주문 정보 입력</h3>
-
-      <input name="email" type="email" placeholder="이메일">
       <input name="address" type="text" placeholder="주소">
       <input name="zipCode" type="text" placeholder="우편번호">
       <button type="submit">주문하기</button>
   </div>
 </div>
-
   <div th:if="${errorMessage}" style="color: red; margin-top: 10px;">
     <p th:text="${errorMessage}"></p>
   </div>
