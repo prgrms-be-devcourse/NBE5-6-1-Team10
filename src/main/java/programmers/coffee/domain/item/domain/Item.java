@@ -9,5 +9,5 @@ public class Item {
     private String description;
     private int price;
     private String imageUrl;
-    private int stock;
+    private int stockCnt;
 }
