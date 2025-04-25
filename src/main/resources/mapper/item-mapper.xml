@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//KO"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="programmers.coffee.domain.order.mapper.ItemMapper">
+<mapper namespace="programmers.coffee.domain.item.repository.ItemRepository">
 
   <resultMap id="itemResultMap" type="programmers.coffee.domain.order.domain.Item">
     <id property="itemId" column="item_id"/>
@@ -15,10 +15,19 @@
   <select id="findById" resultMap="itemResultMap">
     SELECT * FROM item
     WHERE item_id = #{itemId}
+  <select id="findAll" resultType="programmers.coffee.domain.item.domain.Item">
+    SELECT * FROM item;
   </select>
 
   <select id="findAll" resultMap="itemResultMap">
     SELECT * FROM item
+  <select id="findById" parameterType="long" resultType="programmers.coffee.domain.item.domain.Item">
+    SELECT * FROM item WHERE id = #{id};
   </select>
+
+  <insert id="insertItem" parameterType="programmers.coffee.domain.item.domain.Item">
+    INSERT INTO item(item_name, description, price, sold_out)
+    VALUES(#{itemName}, #{description}, #{price}, #{soldOut});
+  </insert>
 
 </mapper>
