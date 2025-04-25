@@ -12,7 +12,6 @@ import java.util.List;
 @Mapper
 @Repository
 public interface ItemRepository{
-
     void insertItem(ItemRequestDto dto);
     List<ItemResponseDto> selectAllItems();
     ItemResponseDto selectItemById(Long itemId);
