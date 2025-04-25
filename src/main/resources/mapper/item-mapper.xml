@@ -19,7 +19,7 @@
     VALUES (#{itemName}, #{description}, #{price}, #{imageUrl}, #{stock})
   </insert>
 
-  <select id="selectAllItems" resultType="programmers.coffee.domain.item.dto.ItemResponseDto">
+  <select id="selectAllItems" resultMap="ItemResultMap">
     SELECT * FROM item
   </select>
 
