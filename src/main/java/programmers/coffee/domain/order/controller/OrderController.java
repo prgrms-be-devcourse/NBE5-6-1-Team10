@@ -28,7 +28,7 @@ public class OrderController {
     public String orderPage(Model model) {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
-        return "order/order";
+        return "order/orderForm";
     }
 
     // 비회원 주문 처리
@@ -80,16 +80,16 @@ public class OrderController {
     }
 
     // 회원 전용 주문 화면
-    @GetMapping("/orders/team")
+    @GetMapping("/orders/member")
     public String teamOrderPage(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
         model.addAttribute("user", userDetails.getUser());
-        return "order/order-team";
+        return "order/orderMemberForm";
     }
 
     // 회원 전용 주문 등록
-    @PostMapping("/orders/team")
+    @PostMapping("/orders/member")
     public String createTeamOrder(@AuthenticationPrincipal CustomUserDetails userDetails, HttpServletRequest request) {
         Long userId = userDetails.getUser().getId();
         String email = userDetails.getUsername();
@@ -125,14 +125,14 @@ public class OrderController {
 
         OrderRequestDto dto = new OrderRequestDto(userId, email, address, zipCode, orderItems);
         Long orderId = orderService.createOrder(dto);
-        return "redirect:/orders/team/result/" + orderId;
+        return "redirect:/orders/member/result/" + orderId;
     }
 
     // 회원 전용 주문 결과 화면
-    @GetMapping("/orders/team/result/{orderId}")
+    @GetMapping("/orders/member/result/{orderId}")
     public String getTeamOrderResult(@PathVariable Long orderId, Model model) {
         OrderResponseDto dto = orderService.getOrderResult(orderId);
         model.addAttribute("dto", dto);
-        return "order/order-team-result";
+        return "order/orderMember-result";
     }
 }
