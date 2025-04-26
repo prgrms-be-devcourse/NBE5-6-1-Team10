@@ -26,7 +26,7 @@
   </resultMap>
 
   <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
-    INSERT INTO `order` (user_id, email, name, zip_code, address, order_time, order_status)
+    INSERT INTO orders (user_id, email, name, zip_code, address, order_time, order_status)
     VALUES (#{userId}, #{email}, #{name}, #{zipCode}, #{address}, #{orderTime}, #{orderStatus})
   </insert>
 
@@ -36,11 +36,11 @@
   </insert>
 
   <update id="updateTotalPrice">
-    UPDATE `order` SET total_price = #{totalPrice} WHERE order_id = #{orderId}
+    UPDATE orders SET total_price = #{totalPrice} WHERE order_id = #{orderId}
   </update>
 
   <select id="selectOrderById" resultMap="OrderResultMap">
-    SELECT * FROM `order` WHERE order_id = #{orderId}
+    SELECT * FROM orders WHERE order_id = #{orderId}
   </select>
 
   <select id="selectOrderItemsByOrderId" resultMap="OrderItemResultMap">
