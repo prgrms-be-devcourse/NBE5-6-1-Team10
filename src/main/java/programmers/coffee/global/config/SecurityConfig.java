@@ -24,6 +24,8 @@ public class SecurityConfig {
                 (auth) -> auth
                     .requestMatchers("/", "/users/login", "/users/login-process", "/users/signup", "/orders", "/orders/result/").permitAll()
                     .requestMatchers("/css/**", "/assets/**", "/js/**","/items","items/","items/new").permitAll()
+                    .requestMatchers("/orders/query", "/orders/{id}").permitAll()
+                    .requestMatchers("/orders/member/list").authenticated()
                     .anyRequest().authenticated()
             );
 

@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="programmers.coffee.domain.item.repository.ItemRepository">
 
   <select id="findAll" resultType="programmers.coffee.domain.item.domain.Item">
-    SELECT * FROM item;
+    SELECT *
+    FROM item;
   </select>
 
-  <select id="findById" parameterType="long" resultType="programmers.coffee.domain.item.domain.Item">
-    SELECT * FROM item WHERE id = #{id};
+  <select id="findById" parameterType="long"
+    resultType="programmers.coffee.domain.item.domain.Item">
+    SELECT *
+    FROM item
+    WHERE item_id = #{itemId};
   </select>
 
   <insert id="insertItem" parameterType="programmers.coffee.domain.item.domain.Item">
     INSERT INTO item(item_name, description, price, sold_out)
-    VALUES(#{itemName}, #{description}, #{price}, #{soldOut});
+    VALUES (#{itemName}, #{description}, #{price}, #{soldOut});
   </insert>
 
 </mapper>
