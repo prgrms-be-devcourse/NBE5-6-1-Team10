@@ -14,6 +14,10 @@ public class CustomUserDetails implements UserDetails {
         this.user = user;
     }
 
+    public User getDomainUser() {
+        return user;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -59,4 +63,5 @@ public class CustomUserDetails implements UserDetails {
     public String getUsername() {
         return user.getName();
     }
+
 }
