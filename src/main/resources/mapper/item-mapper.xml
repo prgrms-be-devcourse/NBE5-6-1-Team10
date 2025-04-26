@@ -5,21 +5,25 @@
 
 <mapper namespace="programmers.coffee.domain.item.repository.ItemRepository">
 
-  <select id="findAll" resultType="programmers.coffee.domain.item.domain.Item">
-    SELECT *
-    FROM item;
+  <resultMap id="itemResultMap" type="programmers.coffee.domain.item.domain.Item">
+    <id property="itemId" column="item_id"/>
+    <result property="itemName" column="item_name"/>
+    <result property="description" column="description"/>
+    <result property="price" column="price"/>
+    <result property="stockCount" column="stock_cnt"/>
+  </resultMap>
+
+  <select id="findById" parameterType="long" resultMap="itemResultMap">
+    SELECT * FROM item WHERE item_id = #{itemId}
   </select>
 
-  <select id="findById" parameterType="long"
-    resultType="programmers.coffee.domain.item.domain.Item">
-    SELECT *
-    FROM item
-    WHERE item_id = #{itemId};
+  <select id="findAll" resultMap="itemResultMap">
+    SELECT * FROM item
   </select>
 
   <insert id="insertItem" parameterType="programmers.coffee.domain.item.domain.Item">
-    INSERT INTO item(item_name, description, price, sold_out)
-    VALUES (#{itemName}, #{description}, #{price}, #{soldOut});
+    INSERT INTO item(item_name, description, price, stock_cnt)
+    VALUES(#{itemName}, #{description}, #{price}, #{stockCount})
   </insert>
 
 </mapper>

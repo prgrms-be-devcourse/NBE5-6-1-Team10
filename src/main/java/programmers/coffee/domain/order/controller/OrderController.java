@@ -1,17 +1,19 @@
 package programmers.coffee.domain.order.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import programmers.coffee.domain.order.domain.Item;
+import programmers.coffee.domain.item.domain.Item;
+import programmers.coffee.domain.item.repository.ItemRepository;
 import programmers.coffee.domain.order.dto.OrderItemDto;
 import programmers.coffee.domain.order.dto.OrderRequestDto;
 import programmers.coffee.domain.order.dto.OrderResponseDto;
-import programmers.coffee.domain.order.mapper.ItemMapper;
 import programmers.coffee.domain.order.service.OrderService;
+import programmers.coffee.domain.user.domain.CustomUserDetails;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Controller
@@ -19,25 +21,20 @@ import java.util.*;
 public class OrderController {
 
     private final OrderService orderService;
-    private final ItemMapper itemMapper;
+    private final ItemRepository itemRepository;
 
-    /**
-     * 주문 페이지 요청
-     */
+    // 주문 입력 화면
     @GetMapping("/orders")
     public String orderPage(Model model) {
-        List<Item> items = itemMapper.findAll(); // 전체 상품 조회
+        List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
-        return "order/order"; // templates/order/order.html
+        return "order/orderForm";
     }
 
-    /**
-     * 주문 등록 처리
-     */
+    // 비회원 주문 처리
     @PostMapping("/orders")
     public String createOrder(HttpServletRequest request) {
-        Long userId = (Long) request.getSession().getAttribute("userId"); // 로그인된 유저 ID
-
+        Long userId = (Long) request.getSession().getAttribute("userId");
         String email = request.getParameter("email");
         String address = request.getParameter("address");
         String zipCode = request.getParameter("zipCode");
@@ -47,31 +44,95 @@ public class OrderController {
 
         for (String key : paramMap.keySet()) {
             if (key.matches("\\d+")) {
-                int itemCnt = Integer.parseInt(request.getParameter(key));
-                if (itemCnt > 0) {
-                    Long itemId = Long.parseLong(key);
-                    Item item = itemMapper.findById(itemId);
-                    int price = item.getPrice();
-
-
-                    orderItems.add(new OrderItemDto(itemId, itemCnt, price));
+                String paramValue = request.getParameter(key);
+                if (paramValue != null && !paramValue.isBlank()) {
+                    try {
+                        int itemCnt = Integer.parseInt(paramValue);
+                        if (itemCnt > 0) {
+                            Long itemId = Long.parseLong(key);
+                            Item item = itemRepository.findById(itemId);
+                            if (item == null) {
+                                throw new IllegalArgumentException("존재하지 않는 상품입니다. ID: " + itemId);
+                            }
+                            if (item.getPrice() == 0) {
+                                throw new IllegalStateException("상품 가격이 설정되지 않았습니다. ID: " + itemId);
+                            }
+                            orderItems.add(new OrderItemDto(itemId, itemCnt, item.getPrice()));
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("잘못된 입력: itemId=" + key + ", value=" + paramValue);
+                    }
                 }
             }
         }
 
         OrderRequestDto dto = new OrderRequestDto(userId, email, address, zipCode, orderItems);
         Long orderId = orderService.createOrder(dto);
-
         return "redirect:/orders/result/" + orderId;
     }
 
-    /**
-     * 주문 결과 화면
-     */
+    // 비회원 주문 결과 화면
     @GetMapping("/orders/result/{orderId}")
     public String getOrderResult(@PathVariable Long orderId, Model model) {
         OrderResponseDto dto = orderService.getOrderResult(orderId);
         model.addAttribute("dto", dto);
         return "order/order-result";
+    }
+
+    // 회원 전용 주문 화면
+    @GetMapping("/orders/member")
+    public String teamOrderPage(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
+        List<Item> items = itemRepository.findAll();
+        model.addAttribute("items", items);
+        model.addAttribute("user", userDetails.getUser());
+        return "order/orderMemberForm";
+    }
+
+    // 회원 전용 주문 등록
+    @PostMapping("/orders/member")
+    public String createTeamOrder(@AuthenticationPrincipal CustomUserDetails userDetails, HttpServletRequest request) {
+        Long userId = userDetails.getUser().getId();
+        String email = userDetails.getUsername();
+        String address = request.getParameter("address");
+        String zipCode = request.getParameter("zipCode");
+
+        List<OrderItemDto> orderItems = new ArrayList<>();
+        Map<String, String[]> paramMap = request.getParameterMap();
+
+        for (String key : paramMap.keySet()) {
+            if (key.matches("\\d+")) {
+                String paramValue = request.getParameter(key);
+                if (paramValue != null && !paramValue.isBlank()) {
+                    try {
+                        int itemCnt = Integer.parseInt(paramValue);
+                        if (itemCnt > 0) {
+                            Long itemId = Long.parseLong(key);
+                            Item item = itemRepository.findById(itemId);
+                            if (item == null) {
+                                throw new IllegalArgumentException("존재하지 않는 상품입니다. ID: " + itemId);
+                            }
+                            if (item.getPrice() == 0) {
+                                throw new IllegalStateException("상품 가격이 설정되지 않았습니다. ID: " + itemId);
+                            }
+                            orderItems.add(new OrderItemDto(itemId, itemCnt, item.getPrice()));
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("잘못된 입력: itemId=" + key + ", value=" + paramValue);
+                    }
+                }
+            }
+        }
+
+        OrderRequestDto dto = new OrderRequestDto(userId, email, address, zipCode, orderItems);
+        Long orderId = orderService.createOrder(dto);
+        return "redirect:/orders/member/result/" + orderId;
+    }
+
+    // 회원 전용 주문 결과 화면
+    @GetMapping("/orders/member/result/{orderId}")
+    public String getTeamOrderResult(@PathVariable Long orderId, Model model) {
+        OrderResponseDto dto = orderService.getOrderResult(orderId);
+        model.addAttribute("dto", dto);
+        return "order/orderMember-result";
     }
 }
