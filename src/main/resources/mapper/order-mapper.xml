@@ -13,8 +13,20 @@
     <result property="price" column="price"/>
   </resultMap>
 
+  <resultMap id="OrderResultMap" type="programmers.coffee.domain.order.domain.Order">
+    <result property="orderId" column="order_id"/>
+    <result property="userId" column="user_id"/>
+    <result property="email" column="email"/>
+    <result property="name" column="name"/>
+    <result property="zipCode" column="zip_code"/>
+    <result property="address" column="address"/>
+    <result property="totalPrice" column="total_price"/>
+    <result property="orderTime" column="order_time"/>
+    <result property="orderStatus" column="order_status"/>
+  </resultMap>
+
   <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
-    INSERT INTO `order` (user_id, email, name, zip_code, address, order_time, order_status)
+    INSERT INTO orders (user_id, email, name, zip_code, address, order_time, order_status)
     VALUES (#{userId}, #{email}, #{name}, #{zipCode}, #{address}, #{orderTime}, #{orderStatus})
   </insert>
 
@@ -24,11 +36,11 @@
   </insert>
 
   <update id="updateTotalPrice">
-    UPDATE `order` SET total_price = #{totalPrice} WHERE order_id = #{orderId}
+    UPDATE orders SET total_price = #{totalPrice} WHERE order_id = #{orderId}
   </update>
 
-  <select id="selectOrderById" resultType="programmers.coffee.domain.order.domain.Order">
-    SELECT * FROM `order` WHERE order_id = #{orderId}
+  <select id="selectOrderById" resultMap="OrderResultMap">
+    SELECT * FROM orders WHERE order_id = #{orderId}
   </select>
 
   <select id="selectOrderItemsByOrderId" resultMap="OrderItemResultMap">
