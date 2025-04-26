@@ -72,12 +72,11 @@
 <body>
 <div class="card">
   <h1>주문 내역 확인</h1>
-  <form th:action="@{/orders/query}" method="get">
+  <form th:action="@{/orders/guest/history}" method="get">
     <input type="email" name="email" placeholder="example@email.com" required>
     <button type="submit">조회하기</button>
   </form>
   <p>비회원인 경우 이메일 주소로 주문조회만 가능합니다.</p>
-  <p th:if="${error}" class="error" th:text="${error}"></p>
 </div>
 
 </body>

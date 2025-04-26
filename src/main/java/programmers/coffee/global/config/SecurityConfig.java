@@ -25,8 +25,8 @@ public class SecurityConfig {
                     .requestMatchers("/", "/users/**", "/orders","/orders/result/**").permitAll()
                     .requestMatchers("/css/**", "/images/**", "/assets/**", "/js/**","/items",
                         "items/","items/new", "/error/**").permitAll()
-                    .requestMatchers("/orders/query", "/orders/{id}").permitAll()
-                    .requestMatchers("/orders/member/list").authenticated()
+                    .requestMatchers("/orders/guest/history", "/orders/{id}").permitAll()
+                    .requestMatchers("/orders/my/history").authenticated()
                     .anyRequest().authenticated()
             );
 

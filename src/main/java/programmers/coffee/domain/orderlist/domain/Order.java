@@ -34,7 +34,6 @@ public class Order {
     private String orderStatus;
     private int totalPrice;
 
-    // --- 여기를 userId → User 연관관계로 변경 ---
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")  // orders.user_id FK
     private User user;

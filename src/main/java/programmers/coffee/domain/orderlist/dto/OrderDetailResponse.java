@@ -14,7 +14,7 @@ public class OrderDetailResponse {
     @AllArgsConstructor
     @Getter
     private static class OrderItemResponse {
-        private String productName;
+        private String itemName;
         private int orderCnt;
         private int price;
         private int subtotalPrice;
@@ -47,6 +47,5 @@ public class OrderDetailResponse {
                 item.getOrderCnt(), item.getPrice(), item.getSubtotalPrice());
             orderItems.add(response);
         }
-
     }
 }
