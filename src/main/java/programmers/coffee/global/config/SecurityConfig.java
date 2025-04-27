@@ -23,8 +23,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(
                 (auth) -> auth
                     .requestMatchers("/", "/users/**", "/orders","/orders/result/**").permitAll()
-                    .requestMatchers("/css/**", "/images/**", "/assets/**", "/js/**","/items",
-                        "items/","items/new", "/error/**").permitAll()
+                    .requestMatchers("/css/**", "/images/**", "/assets/**", "/js/**", "/error/**","/upload/**").permitAll()
+                        .requestMatchers("/items", "/items/", "/items/{id}").permitAll()
+                        .requestMatchers("/items/admin/**").authenticated()
                     .requestMatchers("/orders/guest/history", "/orders/{id}").permitAll()
                     .requestMatchers("/orders/my/history").authenticated()
                     .anyRequest().authenticated()

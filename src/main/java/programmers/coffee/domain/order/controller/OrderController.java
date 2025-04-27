@@ -31,7 +31,7 @@ public class OrderController {
     public String orderPage(Model model) {
         List<ItemResponseDto> items = itemRepository.selectAllItems();
         model.addAttribute("items", items);
-        return "order/order"; // templates/order/order.html
+        return "order/orderForm";
     }
 
     /**

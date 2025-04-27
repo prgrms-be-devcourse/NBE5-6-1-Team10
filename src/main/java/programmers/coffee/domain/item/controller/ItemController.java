@@ -28,7 +28,7 @@ public class ItemController {
         return "item/list";
     }
 
-    @GetMapping("/form")
+    @GetMapping("/admin/form")
     public String itemForm(Model model) {
         File uploadDir = new File("src/main/resources/static/upload");
         File[] files = uploadDir.listFiles();
@@ -45,7 +45,7 @@ public class ItemController {
     }
 
 
-    @PostMapping("/new")
+    @PostMapping("/admin/new")
     public String registerItem(@ModelAttribute ItemRequestDto dto) {
         itemService.saveItem(dto);
         return "redirect:/items";
