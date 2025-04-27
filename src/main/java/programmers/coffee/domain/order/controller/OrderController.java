@@ -5,7 +5,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import programmers.coffee.domain.item.domain.Item;
 import programmers.coffee.domain.item.dto.ItemResponseDto;
 import programmers.coffee.domain.item.repository.ItemRepository;
 import programmers.coffee.domain.order.dto.OrderItemDto;
@@ -16,6 +15,7 @@ import programmers.coffee.domain.order.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import programmers.coffee.domain.user.domain.CustomUserDetails;
 
+import java.time.LocalTime;
 import java.util.*;
 
 @Controller
@@ -31,7 +31,21 @@ public class OrderController {
     public String orderPage(Model model) {
         List<ItemResponseDto> items = itemRepository.selectAllItems();
         model.addAttribute("items", items);
-        return "order/orderForm";
+
+        LocalTime now = LocalTime.now();
+        String deliveryNotice;
+
+        // 오후 2시 기준 분기
+        if (now.isBefore(LocalTime.of(14, 0))) {
+            deliveryNotice = "당일 배송을 시작합니다.";
+        } else {
+            deliveryNotice = "오후 2시 이후 주문은 다음날 배송을 시작합니다";
+        }
+
+        // 모델에 추가
+        model.addAttribute("deliveryNotice", deliveryNotice);
+       return "order/orderForm";
+
     }
 
     /**
