@@ -1,6 +1,7 @@
 package programmers.coffee.domain.order.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.time.LocalTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,19 @@ public class OrderController {
     public String orderPage(Model model) {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
+
+        LocalTime now = LocalTime.now();
+        String deliveryNotice;
+
+        // 오후 2시 기준 분기
+        if (now.isBefore(LocalTime.of(14, 0))) {
+            deliveryNotice = "당일 배송을 시작합니다.";
+        } else {
+            deliveryNotice = "오후 2시 이후 주문은 다음날 배송을 시작합니다";
+        }
+
+        // 모델에 추가
+        model.addAttribute("deliveryNotice", deliveryNotice);
         return "order/orderForm";
     }
 
@@ -85,6 +99,19 @@ public class OrderController {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
         model.addAttribute("user", userDetails.getUser());
+
+        LocalTime now = LocalTime.now();
+        String deliveryNotice;
+
+        // 오후 2시 기준 분기
+        if (now.isBefore(LocalTime.of(14, 0))) {
+            deliveryNotice = "당일 배송을 시작합니다.";
+        } else {
+            deliveryNotice = "오후 2시 이후 주문은 다음날 배송을 시작합니다";
+        }
+
+        // 모델에 추가
+        model.addAttribute("deliveryNotice", deliveryNotice);
         return "order/orderMemberForm";
     }
 
