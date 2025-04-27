@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import programmers.coffee.domain.item.dto.ItemRequestDto;
 import programmers.coffee.domain.item.dto.ItemResponseDto;
 import programmers.coffee.domain.item.repository.ItemRepository;
 import programmers.coffee.domain.order.domain.Order;
@@ -38,8 +37,6 @@ public class OrderService {
         int totalPrice = 0;
 
         for (OrderItemDto itemDto : dto.getItems()) {
-            // 기존 코드
-            //programmers.coffee.domain.item.domain.Item item = itemRepository.findById(itemDto.getItemId());
             ItemResponseDto item = itemRepository.selectItemById(itemDto.getItemId());
 
 

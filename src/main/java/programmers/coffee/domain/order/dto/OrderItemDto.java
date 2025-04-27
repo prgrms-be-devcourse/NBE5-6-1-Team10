@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
-import programmers.coffee.domain.item.domain.Item; //
 import programmers.coffee.domain.item.dto.ItemResponseDto;
 import programmers.coffee.domain.order.domain.OrderItem;
 
@@ -34,4 +33,8 @@ public class OrderItemDto {
         orderItem.setItemName(item.getItemName());
         return orderItem;
     }
+
+
 }
+
+

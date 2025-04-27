@@ -23,10 +23,9 @@ public class ItemRepositoryTest {
         dto.setItemName("테스트 커피");
         dto.setDescription("테스트용입니다");
         dto.setPrice(5000);
-        dto.setStock(3);
+        dto.setStockCount(3);
         dto.setImageUrl("/upload/test.jpg");
 
-<<<<<<< HEAD
         // when
         itemRepository.insertItem(dto);
         List<ItemResponseDto> items = itemRepository.selectAllItems();
@@ -34,10 +33,6 @@ public class ItemRepositoryTest {
         // then
         assertThat(items).isNotEmpty();
         boolean contains = items.stream().anyMatch(i -> "테스트 커피".equals(i.getItemName()));
-
         assertThat(contains).isTrue();
-=======
-        itemRepository.insertItem(item);
->>>>>>> 9b3e4492117c0c4f9353483cbc23403b1a1fc702
     }
 }
