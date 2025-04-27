@@ -13,6 +13,5 @@ public class OrderItem {
     private int orderCnt;
     private int price;
 
-    // 조인된 item 정보
     private String itemName;
 }
