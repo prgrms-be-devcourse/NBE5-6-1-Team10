@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
@@ -26,7 +26,7 @@
     <!-- Header -->
     <header class="bg-dark py-4 mb-4">
         <div class="container text-center text-white">
-            <h1 class="fw-bold">☕ My Coffee</h1>
+            <h1 class="fw-bold">☕My Coffee</h1>
             <p class="text-white-50">로그인 후 커피 주문을 시작하세요</p>
         </div>
     </header>
@@ -51,13 +51,12 @@
                         </div>
                     </form>
                     <hr />
-                    <div class="d-flex justify-content-between mt-3">
-                        <a th:href="@{/users/signup}" class="btn btn-outline-secondary w-48">회원가입</a>
-                        <a th:href="@{/items}" class="btn btn-outline-primary w-48">메뉴 보기</a>
-                        <a th:href="@{/orders}" class="btn btn-outline-success w-48">주문 하기</a>
 
-
-                        </a>
+                    <div class="d-flex flex-column gap-3 mt-4">
+                        <a th:href="@{/users/signup}" class="btn btn-outline-secondary w-100">회원가입</a>
+                        <a th:href="@{/items}" class="btn btn-outline-primary w-100">메뉴</a>
+                        <a th:href="@{/orders}" class="btn btn-outline-success w-100">주문하기</a>
+                        <a th:href="@{/orders/guest/history}" class="btn btn-outline-success w-100">비회원 주문조회</a>
                     </div>
                 </div>
             </div>

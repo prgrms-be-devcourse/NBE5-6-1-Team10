@@ -25,6 +25,7 @@ public class OrderDetailResponse {
     private String name;
     private String address;
     private LocalDateTime orderTime;
+    private String orderStatus;
 
     private List<OrderItemResponse> orderItems = new ArrayList<>();
 
@@ -40,6 +41,7 @@ public class OrderDetailResponse {
         this.name = order.getName();
         this.address = order.getAddress();
         this.orderTime = order.getOrderTime();
+        this.orderStatus = order.getOrderStatus();
 
         List<OrderItem> items = order.getItems();
         for (OrderItem item : items) {
