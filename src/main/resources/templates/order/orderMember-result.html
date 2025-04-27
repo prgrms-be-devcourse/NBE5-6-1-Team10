@@ -1,0 +1,48 @@
+<!-- 📄 orderMember-result: 주문 완료 화면 -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>주문 완료</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
+    .order-result { max-width: 800px; margin: 40px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .order-result h2 { margin-bottom: 20px; }
+    .order-result table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .order-result th, .order-result td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+    .btn-back { margin-top: 20px; display: inline-block; background: #2c2c2c; color: white; padding: 10px; text-decoration: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+
+<div class="order-result">
+  <h2>🎉 주문이 완료되었습니다!</h2>
+
+  <div>
+    <p>📧 이메일: <span th:text="${dto.email}"></span></p>
+    <p>🏠 주소: <span th:text="${dto.address}"></span></p>
+    <p>💾 우편번호: <span th:text="${dto.zipCode}"></span></p>
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th>상품명</th>
+      <th>가격</th>
+      <th>주문 수량</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${dto.items}">
+      <td th:text="${item.itemName}"></td>
+      <td th:text="${item.price} + '원'"></td>
+      <td th:text="${item.itemCnt}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <a class="btn-back" th:href="@{/users}">홈으로 돌아가기</a>
+</div>
+
+</body>
+</html>
