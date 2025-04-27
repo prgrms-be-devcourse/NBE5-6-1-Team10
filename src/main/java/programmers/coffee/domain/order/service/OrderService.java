@@ -5,14 +5,15 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import programmers.coffee.domain.order.domain.Item;
+import programmers.coffee.domain.item.dto.ItemRequestDto;
+import programmers.coffee.domain.item.dto.ItemResponseDto;
+import programmers.coffee.domain.item.repository.ItemRepository;
 import programmers.coffee.domain.order.domain.Order;
 import programmers.coffee.domain.order.domain.OrderItem;
 import programmers.coffee.domain.order.dto.OrderItemDto;
 import programmers.coffee.domain.order.dto.OrderRequestDto;
 import programmers.coffee.domain.order.dto.OrderResponseDto;
-import programmers.coffee.domain.order.exception.OutOfStockException;
-import programmers.coffee.domain.order.mapper.ItemMapper;
+import programmers.coffee.global.exception.OutOfStockException;
 import programmers.coffee.domain.order.mapper.OrderMapper;
 import programmers.coffee.domain.order.mapper.StockMapper;
 
