@@ -1,20 +1,21 @@
 package programmers.coffee.domain.order.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import programmers.coffee.domain.item.domain.Item;
 import programmers.coffee.domain.item.dto.ItemResponseDto;
 import programmers.coffee.domain.item.repository.ItemRepository;
-import programmers.coffee.domain.order.domain.Item;
 import programmers.coffee.domain.order.dto.OrderItemDto;
 import programmers.coffee.domain.order.dto.OrderRequestDto;
 import programmers.coffee.domain.order.dto.OrderResponseDto;
-import programmers.coffee.domain.order.mapper.ItemMapper;
 import programmers.coffee.domain.order.service.OrderService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import programmers.coffee.domain.user.domain.CustomUserDetails;
+
 import java.util.*;
 
 @Controller
