@@ -24,7 +24,8 @@ public class OrderItemDto {
         this.price = price;
     }
 
-    public OrderItem toEntity(Long orderId, Item item) {
+    // 여기서 Entity 안에 매겨변수 타입을 Item -> ItemResponseDto 로 변경해야함
+    public OrderItem toEntity(Long orderId, ItemResponseDto item) {
         OrderItem orderItem = new OrderItem();
         orderItem.setOrderId(orderId);
         orderItem.setItemId(item.getItemId());
@@ -33,8 +34,4 @@ public class OrderItemDto {
         orderItem.setItemName(item.getItemName());
         return orderItem;
     }
-
-
 }
-
-
