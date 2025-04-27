@@ -14,8 +14,8 @@
     <result property="stockCount" column="stock_count"/>
   </resultMap>
 
-  <insert id="insertItem" parameterType="ItemResultMap">
-    INSERT INTO item (item_name, description, price, image_url, item.stock_count)
+  <insert id="insertItem" parameterType="programmers.coffee.domain.item.dto.ItemResponseDto">
+    INSERT INTO item (item_name, description, price, image_url,stock_count)
     VALUES (#{itemName}, #{description}, #{price}, #{imageUrl}, #{stockCount})
   </insert>
 

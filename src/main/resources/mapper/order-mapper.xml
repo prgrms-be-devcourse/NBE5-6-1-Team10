@@ -31,8 +31,8 @@
   </insert>
 
   <insert id="insertOrderItem" useGeneratedKeys="true" keyProperty="orderItemId">
-    INSERT INTO order_item (order_id, item_id, order_cnt, price)
-    VALUES (#{orderId}, #{itemId}, #{orderCnt}, #{price})
+    INSERT INTO order_item (order_id, item_id,item_name, order_cnt, price)
+    VALUES (#{orderId}, #{itemId},#{itemName}, #{orderCnt}, #{price})
   </insert>
 
   <update id="updateTotalPrice">
