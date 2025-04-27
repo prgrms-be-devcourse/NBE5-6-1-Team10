@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="programmers.coffee.domain.item.repository.ItemRepository">
 
@@ -11,12 +11,12 @@
     <result property="description" column="description"/>
     <result property="price" column="price"/>
     <result property="imageUrl" column="image_url"/>
-    <result property="stockCnt" column="stock_cnt"/>
+    <result property="stockCount" column="stock_count"/>
   </resultMap>
 
-  <insert id="insertItem" parameterType="programmers.coffee.domain.item.dto.ItemRequestDto">
-    INSERT INTO item (item_name, description, price, image_url, item.stock_cnt)
-    VALUES (#{itemName}, #{description}, #{price}, #{imageUrl}, #{stockCnt})
+  <insert id="insertItem" parameterType="ItemResultMap">
+    INSERT INTO item (item_name, description, price, image_url, item.stock_count)
+    VALUES (#{itemName}, #{description}, #{price}, #{imageUrl}, #{stockCount})
   </insert>
 
   <select id="selectAllItems" resultMap="ItemResultMap">
@@ -24,7 +24,7 @@
   </select>
 
   <select id="selectItemById" parameterType="long" resultMap="ItemResultMap">
-    SELECT * FROM item WHERE item_id = #{id}
+    SELECT * FROM item WHERE item_id = #{itemId}
   </select>
 
 </mapper>

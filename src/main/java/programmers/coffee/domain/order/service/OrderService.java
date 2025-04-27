@@ -75,4 +75,40 @@ public class OrderService {
         return OrderResponseDto.from(order, itemDtos);
     }
 
+    @Transactional
+    public Long createTeamOrder(OrderRequestDto dto) {
+        Order order = dto.toEntity();
+
+        for (OrderItemDto itemDto : dto.getItems()) {
+            System.out.println("itemDto = " + itemDto.getItemId() + ", count = " + itemDto.getItemCnt());
+        }
+
+        orderMapper.insertOrder(order); // orderId 생성됨
+
+        int totalPrice = 0;
+
+        for (OrderItemDto itemDto : dto.getItems()) {
+            ItemResponseDto item = itemRepository.selectItemById(itemDto.getItemId());
+
+            if (item == null) {
+                throw new IllegalArgumentException("해당 상품이 존재하지 않습니다.");
+            }
+
+            if (item.getStockCount() < itemDto.getItemCnt()) {
+                throw new OutOfStockException("[" + item.getItemName() + "] 재고 부족");
+            }
+
+            stockMapper.decreaseStock(item.getItemId(), itemDto.getItemCnt());
+
+            // item -> ItemResponseDto 로 변경해야함 따라서 Entity 변경
+            OrderItem orderItem = itemDto.toEntity(order.getOrderId(), item);
+            totalPrice += orderItem.getPrice();
+
+            orderMapper.insertOrderItem(orderItem);
+        }
+
+        orderMapper.updateTotalPrice(order.getOrderId(), totalPrice);
+        return order.getOrderId();
+    }
+
 }

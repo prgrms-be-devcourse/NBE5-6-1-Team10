@@ -26,6 +26,7 @@ public class ItemRepositoryTest {
         dto.setStock(3);
         dto.setImageUrl("/upload/test.jpg");
 
+<<<<<<< HEAD
         // when
         itemRepository.insertItem(dto);
         List<ItemResponseDto> items = itemRepository.selectAllItems();
@@ -35,5 +36,8 @@ public class ItemRepositoryTest {
         boolean contains = items.stream().anyMatch(i -> "테스트 커피".equals(i.getItemName()));
 
         assertThat(contains).isTrue();
+=======
+        itemRepository.insertItem(item);
+>>>>>>> 9b3e4492117c0c4f9353483cbc23403b1a1fc702
     }
 }
