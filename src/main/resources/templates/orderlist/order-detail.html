@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>주문 상세</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px 10px;
+      background: #f5f5f5;
+      font-family: 'Noto Sans KR', sans-serif;
+      display: flex;
+      justify-content: center;
+    }
+    .card {
+      width: 100%;
+      max-width: 480px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    .card h1 {
+      margin: 0 0 24px;
+      font-size: 1.5rem;
+      text-align: center;
+      color: #333;
+    }
+    .order-info {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      row-gap: 12px;
+      column-gap: 16px;
+      margin-bottom: 24px;
+    }
+    .order-info dt {
+      font-weight: 600;
+      color: #555;
+    }
+    .order-info dd {
+      margin: 0;
+      color: #333;
+    }
+    .order-items {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+    }
+    .order-items th,
+    .order-items td {
+      padding: 10px;
+      border: 1px solid #eee;
+      text-align: center;
+    }
+    .order-items th {
+      background: #fafafa;
+      font-weight: 600;
+      color: #444;
+    }
+    .total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+<h1>주문 상세 정보</h1>
+<dl class="order-info">
+  <dt>주문번호</dt><dd th:text="${order.orderId}"/>
+  <dt>주문자</dt><dd th:text="${order.name}"/>
+  <dt>이메일</dt><dd th:text="${order.email}"/>
+  <dt>주소</dt><dd th:text="${order.address}"/>
+  <dt>주문시간</dt><dd th:text="${#temporals.format(order.orderTime, 'yyyy-MM-dd HH:mm')}"/>
+</dl>
+<table class="order-items">
+  <thead><tr><th>상품명</th><th>수량</th><th>단가</th><th>소계</th></tr></thead>
+  <tbody>
+  <tr th:each="item : ${order.orderItems}">
+    <td th:text="${item.itemName}"></td>
+    <td th:text="${item.orderCnt}"></td>
+    <td th:text="${item.price} + '원'"></td>
+    <td th:text="${item.subtotalPrice} + '원'"></td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <td colspan="3">총 합계</td><td th:text="${order.totalPrice} + '원'"></td>
+  </tr>
+  </tfoot>
+</table>
+
+</body>
+</html>
