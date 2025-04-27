@@ -21,12 +21,14 @@ public class OrderAdvice {
     @ExceptionHandler(OutOfStockException.class)
     public String handleOutOfStockForOrder(HttpServletRequest request, Model model, OutOfStockException e) {
 
+        List<ItemResponseDto> itemList = itemRepository.selectAllItems();
+        model.addAttribute("items", itemList);
+
         String uri = request.getRequestURI();
         String message = "재고가 부족합니다. 다른 상품 선택해주세요!";
         model.addAttribute("errorMessage", message);
 
-        List<ItemResponseDto> itemList = itemRepository.selectAllItems();
-        model.addAttribute("items", itemList);
+
 
         if (uri.contains("/orders/member")) {
             return "order/orderMemberForm"; // templates/order/orderMemberForm.html
