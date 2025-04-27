@@ -8,6 +8,6 @@ public class Item {
     private String itemName;
     private String description;
     private int price;
+    private int stockCount;
     private String imageUrl;
-    private int stockCnt;
 }

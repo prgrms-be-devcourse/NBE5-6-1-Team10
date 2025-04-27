@@ -10,7 +10,7 @@ public class ItemRequestDto {
     private String description;
     private int price;
     private String imageUrl;
-    private int stockCnt;
+    private int stockCount;
 }
 
 
