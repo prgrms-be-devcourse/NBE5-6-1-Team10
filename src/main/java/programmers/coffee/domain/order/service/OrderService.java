@@ -97,7 +97,6 @@ public class OrderService {
 
             stockMapper.decreaseStock(item.getItemId(), itemDto.getItemCnt());
 
-            // item -> ItemResponseDto 로 변경해야함 따라서 Entity 변경
             OrderItem orderItem = itemDto.toEntity(order.getOrderId(), item);
             totalPrice += orderItem.getPrice();
 

@@ -7,7 +7,7 @@
 
   <update id="decreaseStock">
     UPDATE item
-    SET stock_count = stock_count - #{cnt}
+    SET stock_cnt = stock_cnt - #{cnt}
     WHERE item_id = #{itemId}
   </update>
 

@@ -5,26 +5,26 @@
 
 <mapper namespace="programmers.coffee.domain.item.repository.ItemRepository">
 
-  <resultMap id="ItemResultMap" type="programmers.coffee.domain.item.dto.ItemResponseDto">
+  <resultMap id="itemResultMap" type="programmers.coffee.domain.item.domain.Item">
     <id property="itemId" column="item_id"/>
     <result property="itemName" column="item_name"/>
     <result property="description" column="description"/>
     <result property="price" column="price"/>
     <result property="imageUrl" column="image_url"/>
-    <result property="stockCount" column="stock_count"/>
+    <result property="stockCount" column="stock_cnt"/>
   </resultMap>
 
-  <insert id="insertItem" parameterType="programmers.coffee.domain.item.dto.ItemResponseDto">
-    INSERT INTO item (item_name, description, price, image_url,stock_count)
-    VALUES (#{itemName}, #{description}, #{price}, #{imageUrl}, #{stockCount})
-  </insert>
+  <select id="selectById" parameterType="long" resultMap="itemResultMap">
+    SELECT * FROM item WHERE item_id = #{itemId}
+  </select>
 
-  <select id="selectAllItems" resultMap="ItemResultMap">
+  <select id="selectAllItems" resultType="programmers.coffee.domain.order.domain.Item">
     SELECT * FROM item
   </select>
 
-  <select id="selectItemById" parameterType="long" resultMap="ItemResultMap">
-    SELECT * FROM item WHERE item_id = #{itemId}
-  </select>
+  <insert id="insertItem" parameterType="programmers.coffee.domain.item.domain.Item">
+    INSERT INTO item(item_name, description, price,imge_url ,stock_cnt)
+    VALUES(#{itemName}, #{description}, #{price},#{imgeUrl}, #{stockCount})
+  </insert>
 
 </mapper>

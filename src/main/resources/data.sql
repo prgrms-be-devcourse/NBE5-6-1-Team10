@@ -14,7 +14,7 @@ CREATE TABLE item (
                       image_url VARCHAR(255),
                       description TEXT,
                       price INT NOT NULL,
-                      stock_count INT NOT NULL
+                      stock_cnt INT NOT NULL
 );
 -- 주문 테이블
 CREATE TABLE orders (

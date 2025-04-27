@@ -33,8 +33,4 @@ public class OrderItemDto {
         orderItem.setItemName(item.getItemName());
         return orderItem;
     }
-
-
 }
-
-
