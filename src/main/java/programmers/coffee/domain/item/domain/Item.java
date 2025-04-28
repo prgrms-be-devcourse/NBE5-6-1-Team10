@@ -2,8 +2,6 @@ package programmers.coffee.domain.item.domain;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Builder
 @Data
 public class Item {
@@ -16,5 +14,15 @@ public class Item {
 
     public Item() {
 
+    }
+
+    @Builder
+    public Item(Long itemId, String itemName, String description, int price, int stockCount, String imageUrl) {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.description = description;
+        this.price = price;
+        this.stockCount = stockCount;
+        this.imageUrl = imageUrl;
     }
 }

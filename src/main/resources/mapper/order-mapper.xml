@@ -17,7 +17,6 @@
     <result property="orderId" column="order_id"/>
     <result property="userId" column="user_id"/>
     <result property="email" column="email"/>
-    <result property="name" column="name"/>
     <result property="zipCode" column="zip_code"/>
     <result property="address" column="address"/>
     <result property="totalPrice" column="total_price"/>
@@ -26,8 +25,8 @@
   </resultMap>
 
   <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
-    INSERT INTO orders (user_id, email, name, zip_code, address, order_time, order_status)
-    VALUES (#{userId}, #{email}, #{name}, #{zipCode}, #{address}, #{orderTime}, #{orderStatus})
+    INSERT INTO orders (user_id, email, zip_code, address, order_time, order_status, total_price)
+    VALUES (#{userId}, #{email}, #{zipCode}, #{address}, #{orderTime}, #{orderStatus}, #{totalPrice})
   </insert>
 
   <insert id="insertOrderItem" useGeneratedKeys="true" keyProperty="orderItemId">
