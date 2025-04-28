@@ -13,7 +13,6 @@ public class Order {
     private Long userId;
     private Long orderId;
     private String email;
-    private String name;
     private String zipCode;
     private String address;
     private int totalPrice;
@@ -23,11 +22,10 @@ public class Order {
 
 
     public Order(Long userId, String email,
-        String name, String zipCode, String address,
+        String zipCode, String address,
         LocalDateTime orderTime, String orderStatus) {
         this.userId = userId;
         this.email = email;
-        this.name = name;
         this.zipCode = zipCode;
         this.address = address;
         this.orderTime = orderTime;

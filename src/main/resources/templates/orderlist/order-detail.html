@@ -58,14 +58,6 @@
       font-weight: 600;
       color: #444;
     }
-    .total {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #222;
-      margin-bottom: 24px;
-    }
   </style>
 </head>
 <body>
@@ -74,7 +66,6 @@
   <dl class="order-info">
     <dt>주문번호</dt><dd th:text="${order.orderId}"/>
     <dt>주문시간</dt><dd th:text="${#temporals.format(order.orderTime, 'yyyy-MM-dd HH:mm')}"/>
-    <dt>주문자</dt><dd th:text="${order.name}"/>
     <dt>이메일</dt><dd th:text="${order.email}"/>
     <dt>주소</dt><dd th:text="${order.address}"/>
     <dt>주문상태</dt><dd th:text="${order.orderStatus}"/>
@@ -96,6 +87,7 @@
     </tr>
     </tfoot>
   </table>
+</div>
 </body>
 </html>
 

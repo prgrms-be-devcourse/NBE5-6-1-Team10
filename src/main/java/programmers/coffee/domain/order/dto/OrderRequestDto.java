@@ -16,7 +16,6 @@ public class OrderRequestDto {
 
     private Long userId;
     private String email;
-    private String name;
     private String zipCode;
     private String address;
     private List<OrderItemDto> items;
@@ -33,7 +32,6 @@ public class OrderRequestDto {
         Order order = new Order(
             this.userId,
             this.email,
-            this.name,
             this.zipCode,
             this.address,
             LocalDateTime.now(),

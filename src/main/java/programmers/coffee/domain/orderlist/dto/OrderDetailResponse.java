@@ -22,7 +22,6 @@ public class OrderDetailResponse {
 
     private Long orderId;
     private String email;
-    private String name;
     private String address;
     private LocalDateTime orderTime;
     private String orderStatus;
@@ -38,7 +37,6 @@ public class OrderDetailResponse {
     public OrderDetailResponse(Order order) {
         this.orderId = order.getOrderId();
         this.email = order.getEmail();
-        this.name = order.getName();
         this.address = order.getAddress();
         this.orderTime = order.getOrderTime();
         this.orderStatus = order.getOrderStatus();

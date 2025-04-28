@@ -19,7 +19,7 @@ public class ItemRepositoryTest {
         item.setItemName("아메리카노");
         item.setDescription("진한 원두의 풍미");
         item.setPrice(4500);
-        item.setSoldOut(false);
+//        item.setSoldOut(false);
 
         itemRepository.insertItem(item);
     }
