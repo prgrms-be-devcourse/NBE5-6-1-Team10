@@ -79,7 +79,9 @@
 <header>
     <a href="/items/admin/form" class="nav-links">메뉴 등록</a>
     <div class="logo">My Cafe</div>
-    <a href="/orders" class="nav-links">주문하기</a>
+    <a th:href="${#authentication.principal != null} ? '/orders/member' : '/orders'">
+        주문하기
+    </a>
 </header>
 <div class="banner"></div>
 
