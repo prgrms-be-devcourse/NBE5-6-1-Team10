@@ -8,8 +8,8 @@ import programmers.coffee.domain.item.domain.Item;
 
 @Data
 @Builder
-@NoArgsConstructor // 기본 생성자
-@AllArgsConstructor // ✨ 모든 필드를 받는 생성자 추가
+@NoArgsConstructor
+@AllArgsConstructor
 public class ItemResponseDto {
 
     private Long itemId;

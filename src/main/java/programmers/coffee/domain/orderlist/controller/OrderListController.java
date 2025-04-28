@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import programmers.coffee.domain.orderlist.domain.Order;
+import programmers.coffee.domain.orderlist.domain.OrderList;
 import programmers.coffee.domain.orderlist.dto.OrderDetailResponse;
 import programmers.coffee.domain.orderlist.service.OrderListService;
 import programmers.coffee.domain.user.domain.CustomUserDetails;
