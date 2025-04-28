@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 @Builder
 @Data
+
 public class Item {
     private Long itemId;
     private String itemName;
@@ -13,7 +14,6 @@ public class Item {
     private String imageUrl;
 
     public Item() {
-
     }
 
     @Builder
