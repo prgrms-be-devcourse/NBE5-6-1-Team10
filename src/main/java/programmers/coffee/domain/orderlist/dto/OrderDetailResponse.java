@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import programmers.coffee.domain.orderlist.domain.OrderList;
+import programmers.coffee.domain.orderlist.domain.Order;
 import programmers.coffee.domain.orderlist.domain.OrderItem;
 
 @Getter
@@ -35,7 +35,7 @@ public class OrderDetailResponse {
             .sum();
     }
 
-    public OrderDetailResponse(OrderList order) {
+    public OrderDetailResponse(Order order) {
         this.orderId = order.getOrderId();
         this.email = order.getEmail();
         this.name = order.getName();

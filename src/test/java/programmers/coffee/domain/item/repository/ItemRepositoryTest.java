@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import programmers.coffee.domain.item.domain.Item;
 import programmers.coffee.domain.item.dto.ItemRequestDto;
-import programmers.coffee.domain.item.dto.ItemResponseDto;
 
 import java.util.List;
 

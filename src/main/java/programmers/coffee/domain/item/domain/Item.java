@@ -2,6 +2,8 @@ package programmers.coffee.domain.item.domain;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Builder
 @Data
 public class Item {
@@ -11,4 +13,8 @@ public class Item {
     private int price;
     private int stockCount;
     private String imageUrl;
+
+    public Item() {
+
+    }
 }
