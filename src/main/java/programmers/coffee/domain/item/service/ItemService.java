@@ -19,16 +19,46 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public void saveItem(ItemRequestDto dto) {
-        itemRepository.insertItem(dto);
-    }
-
-
     public List<ItemResponseDto> findAllItems() {
-        return itemRepository.selectAllItems();
+        List<Item> items = itemRepository.selectAllItems();
+        return items.stream()
+                .map(item -> ItemResponseDto.builder()
+                        .itemId(item.getItemId())
+                        .itemName(item.getItemName())
+                        .description(item.getDescription())
+                        .price(item.getPrice())
+                        .imageUrl(item.getImageUrl())
+                        .stockCount(item.getStockCount())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     public ItemResponseDto findItemById(Long id) {
-        return itemRepository.selectItemById(id);
+        Item item = itemRepository.selectItemById(id);
+        if (item == null) {
+            throw new IllegalArgumentException("해당 ID의 상품이 없습니다: " + id);
+        }
+        return convertToDto(item);
+    }
+    public void saveItem(ItemRequestDto dto) {
+        Item item = Item.builder()
+                .itemName(dto.getItemName())
+                .description(dto.getDescription())
+                .price(dto.getPrice())
+                .imageUrl(dto.getImageUrl())
+                .stockCount(dto.getStockCount())
+                .build();
+
+        itemRepository.insertItem(item);
+    }
+    private ItemResponseDto convertToDto(Item item) {
+        return new ItemResponseDto(
+                item.getItemId(),
+                item.getItemName(),
+                item.getDescription(),
+                item.getPrice(),
+                item.getImageUrl(),
+                item.getStockCount()
+        );
     }
 }

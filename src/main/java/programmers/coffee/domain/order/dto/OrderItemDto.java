@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+import programmers.coffee.domain.item.domain.Item;
 import programmers.coffee.domain.item.dto.ItemResponseDto;
 import programmers.coffee.domain.order.domain.OrderItem;
 
@@ -23,8 +24,7 @@ public class OrderItemDto {
         this.price = price;
     }
 
-    // 여기서 Entity 안에 매겨변수 타입을 Item -> ItemResponseDto 로 변경해야함
-    public OrderItem toEntity(Long orderId, ItemResponseDto item) {
+    public OrderItem toEntity(Long orderId, Item item) {
         OrderItem orderItem = new OrderItem();
         orderItem.setOrderId(orderId);
         orderItem.setItemId(item.getItemId());
