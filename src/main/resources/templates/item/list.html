@@ -89,9 +89,7 @@
     <div th:each="item : ${items}" class="menu-card">
         <img th:src="${item.imageUrl}" alt="상품 이미지"/>
         <h3 th:text="${item.itemName}">커피 이름</h3>
-        <p th:text="${item.description}">설명</p>
         <p th:text="'가격: ' + ${item.price} + '원'"></p>
-        <p th:text="'재고: ' + ${item.stockCount} + '개'"></p>
         <a th:href="@{|/items/${item.itemId}|}">상세 보기</a>
     </div>
 </div>
