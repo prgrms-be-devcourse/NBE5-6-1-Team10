@@ -10,15 +10,13 @@ import programmers.coffee.domain.order.domain.OrderItem;
 public class OrderResponseDto {
 
     private String email;
-    private String name;
     private String zipCode;
     private String address;
     private int totalPrice;
     private List<OrderItemResponse> items;
 
-    public OrderResponseDto(String email, String name, String zipCode, String address, int totalPrice, List<OrderItemResponse> items) {
+    public OrderResponseDto(String email, String zipCode, String address, int totalPrice, List<OrderItemResponse> items) {
         this.email = email;
-        this.name = name;
         this.zipCode = zipCode;
         this.address = address;
         this.totalPrice = totalPrice;
@@ -44,7 +42,6 @@ public class OrderResponseDto {
     public static OrderResponseDto from(Order order, List<OrderItemResponse> items) {
         return new OrderResponseDto(
             order.getEmail(),
-            order.getName(),
             order.getZipCode(),
             order.getAddress(),
             order.getTotalPrice(),

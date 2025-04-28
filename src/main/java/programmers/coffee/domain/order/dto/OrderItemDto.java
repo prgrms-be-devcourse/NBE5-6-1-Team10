@@ -29,7 +29,7 @@ public class OrderItemDto {
         orderItem.setOrderId(orderId);
         orderItem.setItemId(item.getItemId());
         orderItem.setOrderCnt(this.itemCnt);
-        orderItem.setPrice(item.getPrice() * this.itemCnt);
+        orderItem.setPrice(item.getPrice());
         orderItem.setItemName(item.getItemName());
         return orderItem;
     }

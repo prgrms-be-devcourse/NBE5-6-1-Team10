@@ -97,7 +97,6 @@
       <tr>
         <th>주문번호</th>
         <th>주문시간</th>
-        <th>주문자</th>
         <th>이메일</th>
         <th>총액</th>
         <th>주문상태</th>
@@ -108,7 +107,6 @@
       <tr th:each="o : ${orders}" th:if="${orders.size() > 0}">
         <td th:text="${o.orderId}"></td>
         <td th:text="${#temporals.format(o.orderTime, 'yyyy-MM-dd HH:mm')}"></td>
-        <td th:text="${o.name}"></td>
         <td th:text="${o.email}"></td>
         <td th:text="${o.totalPrice}"></td>
         <td th:text="${o.orderStatus}"></td>
