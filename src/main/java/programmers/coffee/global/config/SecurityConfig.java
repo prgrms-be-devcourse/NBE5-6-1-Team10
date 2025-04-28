@@ -12,19 +12,20 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
             .authorizeHttpRequests(
                 (auth) -> auth
                     .requestMatchers("/", "/users/**", "/orders","/orders/result/**").permitAll()
-                    .requestMatchers("/css/**", "/images/**", "/assets/**", "/js/**","/items",
-                        "items/","items/new", "/error/**").permitAll()
+                    .requestMatchers("/css/**", "/images/**", "/assets/**", "/js/**", "/error/**","/upload/**").permitAll()
+                        .requestMatchers("/items", "/items/", "/items/{id}").permitAll()
+                        .requestMatchers("/items/admin/**").authenticated()
                     .requestMatchers("/orders/guest/history", "/orders/{id}").permitAll()
                     .requestMatchers("/orders/my/history").authenticated()
                     .anyRequest().authenticated()

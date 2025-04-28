@@ -1,13 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>메뉴 상세정보</title>
+    <title>메뉴 상세 정보</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .container img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .container h2 {
+            margin-bottom: 10px;
+        }
+        .container p {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0;
+        }
+        .back-btn {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
-<h1 th:text="${item.name} + ' 상세 정보'">메뉴 상세</h1>
-<p>가격: <span th:text="${item.price} + '원'"></span></p>
-<p>설명: <span th:text="${item.description}"></span></p>
-<a th:href="@{/menus}">목록으로</a>
+<div class="container">
+    <img th:src="${item.imageUrl}" alt="상품 이미지" />
+    <h2 th:text="${item.itemName}">상품명</h2>
+    <p th:text="${item.description}">설명</p>
+    <p th:text="'가격: ' + ${item.price} + '원'"></p>
+    <p th:text="'재고: ' + ${item.stockCount} + '개'"></p>
+    <a href="/items" class="back-btn">메뉴판으로 돌아가기</a>
+</div>
 </body>
 </html>

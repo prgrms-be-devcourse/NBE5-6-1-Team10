@@ -26,7 +26,7 @@
 <div class="container">
   <!-- 상품 카드 반복 예시 -->
   <div class="product" th:each="item : ${items}">
-    <img th:src="@{/images/coffee.png}" alt="커피">
+    <img th:src="${item.imageUrl}" alt="커피">
     <h3 th:text="${item.itemName}"></h3>
     <p th:text="'가격: ' + ${item.price} + '원'"></p>
     <p th:text="'재고: ' + ${item.stockCount} + '개'"></p>

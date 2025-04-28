@@ -1,7 +1,8 @@
 package programmers.coffee.domain.item.domain;
 
+import lombok.Builder;
 import lombok.Data;
-
+@Builder
 @Data
 public class Item {
     private Long itemId;
@@ -9,4 +10,5 @@ public class Item {
     private String description;
     private int price;
     private int stockCount;
+    private String imageUrl;
 }

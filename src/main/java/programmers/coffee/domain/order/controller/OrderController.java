@@ -1,33 +1,38 @@
 package programmers.coffee.domain.order.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
-import java.time.LocalTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import programmers.coffee.domain.item.domain.Item;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import programmers.coffee.domain.item.dto.ItemResponseDto;
 import programmers.coffee.domain.item.repository.ItemRepository;
+import programmers.coffee.domain.item.service.ItemService;
 import programmers.coffee.domain.order.dto.OrderItemDto;
 import programmers.coffee.domain.order.dto.OrderRequestDto;
 import programmers.coffee.domain.order.dto.OrderResponseDto;
 import programmers.coffee.domain.order.service.OrderService;
 import programmers.coffee.domain.user.domain.CustomUserDetails;
 
-import java.util.*;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
 public class OrderController {
 
     private final OrderService orderService;
-    private final ItemRepository itemRepository;
+    private final ItemService itemService;
 
     // 주문 입력 화면
     @GetMapping("/orders")
     public String orderPage(Model model) {
-        List<Item> items = itemRepository.findAll();
+        List<ItemResponseDto> items = itemService.findAllItems();
         model.addAttribute("items", items);
 
         LocalTime now = LocalTime.now();
@@ -64,7 +69,7 @@ public class OrderController {
                         int itemCnt = Integer.parseInt(paramValue);
                         if (itemCnt > 0) {
                             Long itemId = Long.parseLong(key);
-                            Item item = itemRepository.findById(itemId);
+                            ItemResponseDto item = itemService.findItemById(itemId);
                             if (item == null) {
                                 throw new IllegalArgumentException("존재하지 않는 상품입니다. ID: " + itemId);
                             }
@@ -96,7 +101,7 @@ public class OrderController {
     // 회원 전용 주문 화면
     @GetMapping("/orders/member")
     public String teamOrderPage(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
-        List<Item> items = itemRepository.findAll();
+        List<ItemResponseDto> items = itemService.findAllItems();
         model.addAttribute("items", items);
         model.addAttribute("user", userDetails.getUser());
 
@@ -134,7 +139,7 @@ public class OrderController {
                         int itemCnt = Integer.parseInt(paramValue);
                         if (itemCnt > 0) {
                             Long itemId = Long.parseLong(key);
-                            Item item = itemRepository.findById(itemId);
+                            ItemResponseDto item = itemService.findItemById(itemId);
                             if (item == null) {
                                 throw new IllegalArgumentException("존재하지 않는 상품입니다. ID: " + itemId);
                             }
