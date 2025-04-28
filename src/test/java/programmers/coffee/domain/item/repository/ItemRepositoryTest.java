@@ -3,8 +3,8 @@ package programmers.coffee.domain.item.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import programmers.coffee.domain.item.domain.Item;
 import programmers.coffee.domain.item.dto.ItemRequestDto;
-import programmers.coffee.domain.item.dto.ItemResponseDto;
 
 import java.util.List;
 
@@ -26,17 +26,13 @@ public class ItemRepositoryTest {
         dto.setStockCount(3);
         dto.setImageUrl("/upload/test.jpg");
 
-<<<<<<< HEAD
         // when
-        itemRepository.insertItem(dto);
-        List<ItemResponseDto> items = itemRepository.selectAllItems();
+        List<Item> items = itemRepository.selectAllItems();
 
         // then
         assertThat(items).isNotEmpty();
         boolean contains = items.stream().anyMatch(i -> "테스트 커피".equals(i.getItemName()));
         assertThat(contains).isTrue();
-=======
-        itemRepository.insertItem(item);
->>>>>>> 53d9dbbed7ed9cdc459d8f6762f88982aab0c314
+        itemRepository.insertItem(items.get(0));
     }
 }
