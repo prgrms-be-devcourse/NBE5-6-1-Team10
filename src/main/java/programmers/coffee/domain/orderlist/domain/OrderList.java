@@ -19,7 +19,7 @@ import programmers.coffee.domain.user.domain.User;
 @Entity
 @Table(name = "orders")
 @Getter
-public class Order {
+public class OrderList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

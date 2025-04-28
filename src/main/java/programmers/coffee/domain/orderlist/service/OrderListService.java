@@ -3,7 +3,7 @@ package programmers.coffee.domain.orderlist.service;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import programmers.coffee.domain.orderlist.domain.Order;
+import programmers.coffee.domain.orderlist.domain.OrderList;
 import programmers.coffee.domain.orderlist.repository.OrderListRepository;
 
 @RequiredArgsConstructor
@@ -11,15 +11,15 @@ import programmers.coffee.domain.orderlist.repository.OrderListRepository;
 public class OrderListService {
     private final OrderListRepository repository;
 
-    public List<Order> getOrdersByEmail(String email) {
+    public List<OrderList> getOrdersByEmail(String email) {
         return repository.findByEmail(email);
     }
 
-    public List<Order> getOrdersByUserId(Long userId) {
+    public List<OrderList> getOrdersByUserId(Long userId) {
         return repository.findByUserId(userId);
     }
 
-    public Order getOrderWithItems(Long id) {
+    public OrderList getOrderWithItems(Long id) {
         return repository.findByOrderId(id);
     }
 }

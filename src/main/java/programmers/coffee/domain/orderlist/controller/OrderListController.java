@@ -28,7 +28,7 @@ public class OrderListController {
             return "orderlist/order-query";
         }
 
-        List<Order> orders = orderListService.getOrdersByEmail(email);
+        List<OrderList> orders = orderListService.getOrdersByEmail(email);
         model.addAttribute("orders", orders);
         return "orderlist/order-list";
     }
@@ -36,14 +36,14 @@ public class OrderListController {
     @GetMapping("/my/history")
     public String memberQuery(@AuthenticationPrincipal CustomUserDetails userDetails, Model model)
     {
-        List<Order> orders = orderListService.getOrdersByUserId(userDetails.getId());
+        List<OrderList> orders = orderListService.getOrdersByUserId(userDetails.getId());
         model.addAttribute("orders", orders);
         return "orderlist/order-list";
     }
 
     @GetMapping("/{id}")
     public String showDetail(@PathVariable Long id, Model model) {
-        Order order = orderListService.getOrderWithItems(id);
+        OrderList order = orderListService.getOrderWithItems(id);
         OrderDetailResponse response = new OrderDetailResponse(order);
         model.addAttribute("order", response);
         return "orderlist/order-detail";
