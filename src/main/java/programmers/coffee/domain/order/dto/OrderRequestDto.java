@@ -11,7 +11,6 @@ import programmers.coffee.domain.order.domain.Order;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class OrderRequestDto {
 
     private Long userId;

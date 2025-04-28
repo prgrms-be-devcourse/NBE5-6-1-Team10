@@ -5,7 +5,10 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import programmers.coffee.domain.item.domain.Item;
+import programmers.coffee.domain.item.dto.ItemResponseDto;
 import programmers.coffee.domain.item.repository.ItemRepository;
+import programmers.coffee.domain.item.service.ItemService;
 import programmers.coffee.domain.order.domain.Order;
 import programmers.coffee.domain.order.domain.OrderItem;
 import programmers.coffee.domain.order.dto.OrderItemDto;
@@ -22,6 +25,7 @@ public class OrderService {
     private final OrderMapper orderMapper;
     private final ItemRepository itemRepository;
     private final StockMapper stockMapper; // 재고 차감용
+    private final ItemService itemService;
 
     @Transactional
     public Long createOrder(OrderRequestDto dto) {
@@ -36,14 +40,16 @@ public class OrderService {
         int totalPrice = 0;
 
         for (OrderItemDto itemDto : dto.getItems()) {
-            programmers.coffee.domain.item.domain.Item item = itemRepository.findById(itemDto.getItemId());
+            programmers.coffee.domain.item.domain.Item item = itemRepository.selectItemById(itemDto.getItemId());
+
 
             if (item == null) {
                 throw new IllegalArgumentException("해당 상품이 존재하지 않습니다.");
             }
 
             if (item.getStockCount() < itemDto.getItemCnt()) {
-                throw new OutOfStockException("[" + item.getItemName() + "] 재고 부족");
+                List<ItemResponseDto> items = itemService.findAllItems();
+                throw new OutOfStockException(item.getItemId(), items);
             }
 
             stockMapper.decreaseStock(item.getItemId(), itemDto.getItemCnt());
@@ -83,14 +89,15 @@ public class OrderService {
         int totalPrice = 0;
 
         for (OrderItemDto itemDto : dto.getItems()) {
-            programmers.coffee.domain.item.domain.Item item = itemRepository.findById(itemDto.getItemId());
+           Item item = itemRepository.selectItemById(itemDto.getItemId());
 
             if (item == null) {
                 throw new IllegalArgumentException("해당 상품이 존재하지 않습니다.");
             }
 
             if (item.getStockCount() < itemDto.getItemCnt()) {
-                throw new OutOfStockException("[" + item.getItemName() + "] 재고 부족");
+                List<ItemResponseDto> items = itemService.findAllItems();
+                throw new OutOfStockException(item.getItemId(), items);
             }
 
             stockMapper.decreaseStock(item.getItemId(), itemDto.getItemCnt());

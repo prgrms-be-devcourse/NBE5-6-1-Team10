@@ -5,25 +5,28 @@
 
 <mapper namespace="programmers.coffee.domain.item.repository.ItemRepository">
 
-  <resultMap id="itemResultMap" type="programmers.coffee.domain.item.domain.Item">
+  <resultMap id="ItemResultMap" type="programmers.coffee.domain.item.domain.Item">
     <id property="itemId" column="item_id"/>
     <result property="itemName" column="item_name"/>
     <result property="description" column="description"/>
     <result property="price" column="price"/>
+    <result property="imageUrl" column="image_url"/>
     <result property="stockCount" column="stock_cnt"/>
   </resultMap>
 
-  <select id="findById" parameterType="long" resultMap="itemResultMap">
-    SELECT * FROM item WHERE item_id = #{itemId}
-  </select>
+  <!-- insert는 새로 다른 id로 -->
+  <insert id="insertItem" parameterType="programmers.coffee.domain.item.dto.ItemResponseDto">
+    INSERT INTO item (item_name, description, price, image_url, stock_cnt)
+    VALUES (#{itemName}, #{description}, #{price}, #{imageUrl}, #{stockCount})
+  </insert>
 
-  <select id="findAll" resultMap="itemResultMap">
+  <select id="selectAllItems" resultMap="ItemResultMap">
     SELECT * FROM item
   </select>
 
-  <insert id="insertItem" parameterType="programmers.coffee.domain.item.domain.Item">
-    INSERT INTO item(item_name, description, price, stock_cnt)
-    VALUES(#{itemName}, #{description}, #{price}, #{stockCount})
-  </insert>
+  <select id="selectItemById" parameterType="long" resultMap="ItemResultMap">
+    SELECT * FROM item WHERE item_id = #{itemId}
+  </select>
+
 
 </mapper>

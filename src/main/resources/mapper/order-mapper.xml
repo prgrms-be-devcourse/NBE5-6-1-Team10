@@ -25,13 +25,13 @@
   </resultMap>
 
   <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
-    INSERT INTO orders (user_id, email, zip_code, address, order_time, order_status)
-    VALUES (#{userId}, #{email}, #{zipCode}, #{address}, #{orderTime}, #{orderStatus})
+    INSERT INTO orders (user_id, email, zip_code, address, order_time, order_status, total_price)
+    VALUES (#{userId}, #{email}, #{zipCode}, #{address}, #{orderTime}, #{orderStatus}, #{totalPrice})
   </insert>
 
   <insert id="insertOrderItem" useGeneratedKeys="true" keyProperty="orderItemId">
-    INSERT INTO order_item (order_id, item_id, order_cnt, price)
-    VALUES (#{orderId}, #{itemId}, #{orderCnt}, #{price})
+    INSERT INTO order_item (order_id, item_id,item_name, order_cnt, price)
+    VALUES (#{orderId}, #{itemId},#{itemName}, #{orderCnt}, #{price})
   </insert>
 
   <update id="updateTotalPrice">

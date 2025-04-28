@@ -1,10 +1,14 @@
 package programmers.coffee.domain.item.repository;
 
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import programmers.coffee.domain.item.domain.Item;
+import programmers.coffee.domain.item.dto.ItemRequestDto;
+import programmers.coffee.domain.item.dto.ItemResponseDto;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class ItemRepositoryTest {
@@ -13,14 +17,26 @@ public class ItemRepositoryTest {
     ItemRepository itemRepository;
 
     @Test
-    @Transactional
-    void 상품등록테스트(){
-        Item item = new Item();
-        item.setItemName("아메리카노");
-        item.setDescription("진한 원두의 풍미");
-        item.setPrice(4500);
-//        item.setSoldOut(false);
+    void 상품등록_조회_테스트() {
+        // given
+        ItemRequestDto dto = new ItemRequestDto();
+        dto.setItemName("테스트 커피");
+        dto.setDescription("테스트용입니다");
+        dto.setPrice(5000);
+        dto.setStockCount(3);
+        dto.setImageUrl("/upload/test.jpg");
 
+<<<<<<< HEAD
+        // when
+        itemRepository.insertItem(dto);
+        List<ItemResponseDto> items = itemRepository.selectAllItems();
+
+        // then
+        assertThat(items).isNotEmpty();
+        boolean contains = items.stream().anyMatch(i -> "테스트 커피".equals(i.getItemName()));
+        assertThat(contains).isTrue();
+=======
         itemRepository.insertItem(item);
+>>>>>>> 53d9dbbed7ed9cdc459d8f6762f88982aab0c314
     }
 }
