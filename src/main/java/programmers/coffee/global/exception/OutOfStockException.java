@@ -9,7 +9,7 @@ public class OutOfStockException extends RuntimeException {
     private final List<ItemResponseDto> items; // <<< 추가!
 
     public OutOfStockException(Long itemId, List<ItemResponseDto> items) {
-        super("[" + itemId + "] 재고 부족");
+        super("재고가 부족합니다. 다른 상품 선택해주세요!");
         this.itemId = itemId;
         this.items = items;
     }
