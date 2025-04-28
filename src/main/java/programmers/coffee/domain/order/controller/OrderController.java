@@ -124,7 +124,7 @@ public class OrderController {
     @PostMapping("/orders/member")
     public String createTeamOrder(@AuthenticationPrincipal CustomUserDetails userDetails, HttpServletRequest request) {
         Long userId = userDetails.getUser().getId();
-        String email = userDetails.getUsername();
+        String email = userDetails.getEmail();
         String address = request.getParameter("address");
         String zipCode = request.getParameter("zipCode");
 
